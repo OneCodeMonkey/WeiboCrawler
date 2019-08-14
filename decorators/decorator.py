@@ -17,6 +17,7 @@ def timeout_decorator(func):
 
     return time_limit
 
+
 def db_commit_decorator(func):
     @wraps(func)
     def session_commit(*args, **kwargs):
@@ -28,6 +29,7 @@ def db_commit_decorator(func):
             db_session.rollback()
 
     return session_commit
+
 
 def parse_decorator(return_value):
     def page_parse(func):
@@ -41,6 +43,7 @@ def parse_decorator(return_value):
 
         return handle_error
     return page_parse
+
 
 def timeout(seconds):
     def crawl_decorator(func):
