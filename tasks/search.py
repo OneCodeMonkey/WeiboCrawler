@@ -24,7 +24,7 @@ def search_keyword(keyword, keyword_id):
             crawler.warning('No result for keyword {},the source page is {}'.format(keyword, search_page))
             return
 
-        search_list = prase_search.get_search_info(search_page)
+        search_list = parse_search.get_search_info(search_page)
 
         for wb_data in search_list:
             rs = get_wb_by_mid(wb_data.weibo_id)
