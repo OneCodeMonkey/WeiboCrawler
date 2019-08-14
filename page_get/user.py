@@ -9,6 +9,7 @@ from page_parse.user import enterprise, person, public
 
 base_url = "http://weibo.com/p/{}{}/info?mod=pedit_more"
 
+
 def get_user_detail(user_id, html):
     user = person.get_detail(html)
     if user is not None:
@@ -19,6 +20,7 @@ def get_user_detail(user_id, html):
 
     return user
 
+
 def get_enterprise_detail(user_id, html):
     user = User()
     user.uid = user_id
@@ -28,6 +30,7 @@ def get_enterprise_detail(user_id, html):
     user.description = enterprise.get_description(html).encode('GBK', 'ignore').decode('GBK')
 
     return user
+
 
 def get_url_from_web(user_id):
     if not user_id:
@@ -65,6 +68,7 @@ def get_url_from_web(user_id):
     else:
         return None
 
+
 def get_profile(user_id):
     user = get_user_by_uid(user_id)
     if user:
@@ -81,6 +85,7 @@ def get_profile(user_id):
         is_crawled = 0
 
     return user, is_crawled
+
 
 def get_fans_or_followers_ids(user_id, crawl_type):
     if crawl_type == 1:
