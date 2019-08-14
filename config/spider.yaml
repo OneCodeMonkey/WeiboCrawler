@@ -1,0 +1,58 @@
+# coding:UTF-8
+time_out: 200
+min_crawl_interal: 10
+max_crawl_interal: 20
+excp_interal: 5 * 60
+
+max_search_page: 50
+max_home_page: 50
+max_comment_page: 2000
+max_repost_page: 2000
+max_retries: 5
+
+yundama_username: yundama2019A
+yundama_passwd: yundama123
+
+running_mode: normal    # can choose {'normal', 'quick'}
+crawling_mode: normal   # can choose {'normal', 'accurate'}
+
+share_host_count: 5     # the max number of each cookie can be shared
+cookie_expire_time: 23  # expire time of each weibo cookies
+
+db:
+    host: 127.0.0.1
+    port: 3306
+    user: root
+    password: 123456
+    db_name: weibp
+    db_type: mysql
+redis:
+    host: 127.0.0.1
+    port: 6379
+    password: weibospider
+    cookies: 1
+    urls: 2
+    broker: 5       # broker for celery
+    backend: 6      # backed for celery
+    id_name: 8      # user id and names, for repost info analysis
+    expire_name: 48 # expire time(hours) for redis db2, if they are useless to us, we can set the value smaller
+
+    sentine: ''
+#      - host: 2.2.2.2
+#        port: 26379
+#      - host: 3.3.3.3
+#        port: 26379
+#      - host: 4.4.4.4
+#        port: 26379
+    master: mymaster    # redis sentinel master name
+    socket_timeout: 5   # socket timeout for redis sentinel
+
+# warning by email
+email:
+    server: example.com
+    port: 465
+    from: example@example.com     # email account name
+    password: password
+    to: target@example.com        # to which the notice will be sent
+    subject: Warning Of Weibo Crawler
+    warning_info: Please make sure whether this project is working well?
