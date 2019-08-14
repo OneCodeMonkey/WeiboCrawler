@@ -15,6 +15,7 @@ interal = get_crawl_interal()
 max_retries = get_max_retries()
 excp_interal = get_excp_interal()
 
+
 def is_banned(url):
     if 'unfreeze' in url or 'accessdeny' in url or 'userblock' in url:
         return True
@@ -87,5 +88,6 @@ def get_page(url, user_verify = True, need_login = True):
     crawler.warning('max tries for {}, check the url in redis db2' . format(url))
     Urls.store_crawl_url(url, 0)
     return ''
+
 
 __all__ = ['get_page']
