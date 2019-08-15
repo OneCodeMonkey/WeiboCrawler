@@ -78,3 +78,97 @@ class Cookies(Object):
 
     @classmethod
     def fetch_cookies_of_quick(cls):
+        hostname = socket.gethostname()
+        my_cookies_name = cookies_con.hget('host',hostname)
+        if my_cookies_name:
+            my_cookies = cookies_con.hget('account',my_cookies_name)
+            if not cls.check_cookies_timeout(my_cookies):
+                my_cookies = json.loads(my_cookies.decode('UTF-8'))
+                return my_cookies_name, my_cookies['cookies']
+            else:
+                cls.delete_cookies(my_cookies_name)
+
+        while True:
+            try:
+                name = cookies_con.lpop('account_queue').decode('UTF-8')
+            except AttributeError:
+                return None
+            else:
+                j_account = cookies_con.hget('account', name)
+                if cls.check_cookies_timeout(j_account):
+                    cls.delete_cookies(name)
+                    continue
+
+                j_account = j_account.decode('UTF-8')
+                # one account maps many hosts(one to many)
+                hosts = cookies_con.hget('cookies_host', name)
+
+                if not hosts:
+                    hosts = dict()
+                else:
+                    hosts = hosts.decode('UTF-8')
+                    hosts = json.loads(hosts)
+                hosts[hostname] = 1
+                cookies_con.hset('cookies_host', name, json.dumps(hosts))
+
+                # one host maps one account (one to one)
+                account = json.loads(j_account)
+                cookies_con.hset('host', hostname, name)
+
+                # push the cookie to the head
+                if len(hosts) < share_host_count:
+                    cookies_con.lpush('account_queue', name)
+
+                return name, account['cookies']
+
+    @classmethod
+    def delete_cookies(cls, name):
+        cookies_con.hdel('account', name)
+        if mode == 'quick':
+            cookies_con.hdel('cookies_host', name)
+        return True
+
+    @classmethod
+    def check_login_task(cls):
+        if broker_con.llen('login_queue') > 0:
+            broker_con.delete('login_queue')
+
+    @classmethod
+    def check_cookies_timeout(cls, cookies):
+        if cookies is None:
+            return True
+        if isinstance(cookies, bytes):
+            cookies = cookies.decode('UTF-8')
+        cookies = json.loads(cookies)
+        login_time = datetime.datetime.fromtimestamp(cookies['loginTime'])
+        if datetime.datetime.now() - login_time > datetime.timedelta(hours = cookie_expire_time):
+            crawler.warning('the account has been expired.')
+            return True
+
+        return False
+
+
+class Urls(object):
+    @classmethod
+    def store_crawl_url(cls, url, result):
+        urls_con.set(url, result)
+        urls_con.expire(url, data_expire_time)
+
+
+class IdNames(object):
+    @classmethod
+    def store_id_name(cls, user_name, user_id):
+        id_name_con.set(user_name, user_id)
+
+    @classmethod
+    def delete_id_name(cls, user_name):
+        id_name_con.delete(user_name)
+
+    @classmethod
+    def fetch_uid_by_name(cls, user_name):
+        user_id = id_name_con.get(user_name)
+        cls.delete_id_name(user_name)
+        if user_id:
+            return user_id.decode('UTF-8')
+
+        return ''
