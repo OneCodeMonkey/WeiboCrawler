@@ -1,5 +1,5 @@
 # -*- coding=UTF-8 -*-
-import urllib import parse as url_parse
+from urllib import parse as url_parse
 from logger.log import crawler
 from tasks.workers import app
 from page_get.basic import get_page
