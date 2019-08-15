@@ -41,3 +41,28 @@ def get_next_url(html):
         url = soup.find(attrs={'action-type': 'click_more_comment'}).get('action-data')
 
     return url
+
+
+@parse_decorator([])
+def get_comment_list(html, wb_id):
+    cont = get_html_cont(html)
+    if not cont:
+        return list()
+    soup = BeautifulSoup(cont, 'html.parser')
+    comment_list = list()
+    comments = soup.find(attrs={'node-type': 'comment_list'}).find_all(attrs={'class': 'list_li S_line1 clearfix'})
+
+    for comment in comments:
+        wb_comment = WeiboComment()
+        try:
+            wb_comment.comment_cont = comment.find(attrs={'class': 'WB_text'}).text.strip();
+            wb_comment.comment_id = comment['comment_id']
+            wb_comment.user_id = comment.find(attrs={'class': 'WB_text'}).find('a').get('usercard')[3:]
+            wb_comment.create_time = comment.find(attrs={'class': 'WB_from S_txt2'}).text
+            wb_comment.weibo_id = wb_id
+        except Exception as e:
+            parser.error('解析评论失败，原因：{}'.format(e))
+        else:
+            comment_list.append(wb_comment)
+
+    return comment_list
