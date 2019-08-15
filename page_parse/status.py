@@ -85,3 +85,61 @@ def get_statussource(html):
         except Exception:
             return ''
 
+
+@parse_decorator('')
+def get_statustime(html):
+    cont = _get_statushtml(html)
+    soup = BeautifulSoup(cont, 'html.parser')
+    try:
+        return soup.find(attrs={'node-type': 'feed_list_item_date'})['title']
+    except TypeError:
+        return ''
+
+
+@parse_decorator(0)
+def get_repostcounts(html):
+    cont = _get_statushtml(html)
+    soup = BeautifulSoup(cont, 'html.parser')
+    try:
+        reposts = soup.find(attrs={'node-type': 'forward_btn_text'}).find('span').find('em').find_next_sibling().text
+        if reposts == '转发':
+            return 0
+        counts = int(reposts)
+        return counts
+    except (ValueError, AttributeError) as e:
+        parser.error(e)
+        return 0
+
+
+@parse_decorator(0)
+def get_commentcounts(html):
+    cont = _get_statushtml(html)
+    soup = BeautifulSoup(cont, "html.parser")
+    try:
+        comments = soup.find(attrs={'node-type': 'comment_btn_text'}).find('span').find('em').find_next_sibling().text
+        if comments == '评论':
+            return 0
+        counts = int(comments)
+        return counts
+    except (ValueError, AttributeError) as e:
+        parser.error(e)
+        return 0
+
+
+@parse_decorator(0)
+def get_likecounts(html):
+    cont = _get_statushtml(html)
+    soup = BeautifulSoup(cont, "html.parser")
+    try:
+        if is_root(html):
+            likes = soup.find(attrs={'node-type': 'like_status'}).find_all('em')[1].text
+        else:
+            likes = soup.find_all(attrs={'node-type': 'like_status'})[1].find_all('em')[1].text
+        if likes == '赞':
+            return 0
+        else:
+            return int(likes)
+    except (ValueError, AttributeError) as e:
+        parser.error(e)
+        return 0
+
