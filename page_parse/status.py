@@ -143,3 +143,10 @@ def get_likecounts(html):
         parser.error(e)
         return 0
 
+
+def is_root(html):
+    try:
+        return False if 'omid=' in html else True
+    except TypeError:
+        return True
+
