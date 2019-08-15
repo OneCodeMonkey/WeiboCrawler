@@ -62,3 +62,26 @@ def get_mid(html):
     except Exception as e:
         parser.error('get_mid() 发生异常，具体为{e}'.format(e=e))
 
+
+@parse_decorator('')
+def get_originalmid(html):
+    if is_not(html):
+        return get_mid(html)
+    else:
+        cont = _get_statushtml(html)
+        soup = BeautifulSoup(cont, 'html.parser')
+        return soup.find(attrs={'action-type': 'feed_list_item'})['omid']
+
+
+@parse_decorator('')
+def get_statussource(html):
+    cont = _get_statushtml(html)
+    soup = BeautifulSoup(cont, 'html.parser')
+    try:
+        return soup.find(attrs={'action-type':'app_source'}).text
+    except AttributeError:
+        try:
+            return soup.find(attrs={'class': 'WB_from S_txt2'}).find_all('a')[1].text
+        except Exception:
+            return ''
+
