@@ -187,3 +187,17 @@ def get_reposturls(repostinfo):
         return []
 
 
+def get_upperusername(html, defaultname):
+    cont = _get_statushtml(html)
+    if 'type=atname' in cont:
+        try:
+            soup = BeautifulSoup(cont, 'html.parser')
+            cont = soup.find(attrs={'node-type': 'feed_list_content'}).find(attrs={'render': 'ext', 'extra-data': 'type=atname'}).text
+            return cont[1:]
+        except AttributeError:
+            return defaultname
+        except Exception as e:
+            parser.parse(e)
+            return defaultname
+    else:
+        return defaultname
