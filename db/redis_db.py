@@ -32,4 +32,49 @@ else:
     host = redis_args.get('host', '127.0.0.1')
     port = redis_args.get('port', 6379)
     cookies_con = redis.Redis(host=host,port=port,password=password,db=cookies_db)
-    broker_con = redis.Redis()
+    broker_con = redis.Redis(host=host,port=port,password=password,db=broker_db)
+    urls_con = redis.Redis(host=host,port=port,password=password,db=urls_db)
+    id_name_con = redis.Redis(host=host,port=port,password=password,db=id_name_db)
+
+
+class Cookies(Object):
+    @classmethod
+    def store_cookies(cls, name, cookies):
+        pickled_cookies = json.dumps(
+            {'cookies': cookies, 'loginTime': datetime.datetime.now().timestamp()}
+        )
+        cookies_con.hset('account', name, pickled_cookies)
+        cls.push_in_queue(name)
+
+    @classmethod
+    def push_in_queue(cls, name):
+        for i in range(cookies_con.llen('account_queue')):
+            tn = cookies_con.lindex('account_queue', i).decode('UTF-8')
+            if tn:
+                if tn == name:
+                    return
+        cookies_con.rpush('account_queue', name)
+
+    @classmethod
+    def fetch_cookies(cls):
+        if mode == 'normal':
+            return cls.fetch_cookies_of_normal()
+        else:
+            return cls.fetch_cookies_of_quick()
+
+    @classmethod
+    def fetch_cookies_of_normal(cls):
+        for i in range(cookies_con.llen('account_queue')):
+            name = cookies_con.lpop('account_queue').decode('UTF-8')
+            j_account = cookies_con.hget('account', name).decode('UTF-8')
+            if j_account:
+                if cls.check_cookies_timeout(j_account):
+                    cls.delete_cookies(name)
+                    continue
+                cookies_con.rpush('account_queue', name)
+                account = json.loads(j_account)
+                return name,account['cookies']
+        return None
+
+    @classmethod
+    def fetch_cookies_of_quick(cls):
