@@ -150,3 +150,40 @@ def is_root(html):
     except TypeError:
         return True
 
+
+@parse_decorator('')
+def get_rooturl(cururl, html):
+    if is_root(html):
+        return cururl
+    else:
+        cont = _get_statushtml(html)
+        if cont == '':
+            return ''
+        soup = BeautifulSoup(cont, 'html.parser')
+        try:
+            url = 'https://weibo.com'+soup.find(attrs={'node-type': 'feed_list_forwardContent'}).find(attrs={'class': 'WB_from'}).find(attrs={'class': 'S_txt2'})['href']
+        except TypeError:
+            return ''
+        except AttributeError:
+            print('解析错误')
+            return ''
+        except KeyError:
+            return ''
+        else:
+            return url
+
+
+@parse_decorator([])
+def get_reposturls(repostinfo):
+    try:
+        repost_urls = []
+        prestring = 'https://weibo.com'
+        soup = BeautifulSoup(repostinfo, 'html.parser')
+        conts = soup.find_all(attrs={'node-type': 'feed_list_item_date'})
+        for cont in conts:
+            repost_urls.append(prestring+cont['href'])
+        return repost_urls
+    except AttributeError:
+        return []
+
+
