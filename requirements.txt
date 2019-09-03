@@ -7,9 +7,8 @@ celery==4.3.0
 SQLAlchemy==1.1.15
 PyMySQL==0.7.11
 flower==0.9.1
-kombu==4.6.4
+urllib3==1.22
 Django==1.11.6
 django-suit==0.2.25
-html5lib==1.0.1
 gunicorn==19.7.1
-urllib3==1.22
+kombu==4.6.4

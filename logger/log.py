@@ -1,14 +1,14 @@
-# -*- coding=UTF-8 -*-
-import os,logging
+import os
+import logging
 import logging.config as log_conf
 
-log_dir = os.path.dirname(os.path.dirname(__file__)) + '/logs'
+log_dir = os.path.dirname(os.path.dirname(__file__))+'/logs'
 if not os.path.exists(log_dir):
     os.mkdir(log_dir)
 
 log_path = os.path.join(log_dir, 'weibo.log')
 
-log_config={
+log_config = {
     'version': 1.0,
     'formatters': {
         'detail': {
@@ -32,7 +32,7 @@ log_config={
             'filename': log_path,
             'level': 'INFO',
             'formatter': 'detail',
-            'encoding': 'UTF-8'
+            'encoding': 'utf-8',
         },
     },
     'loggers': {
@@ -57,9 +57,7 @@ log_config={
 
 log_conf.dictConfig(log_config)
 
-other = logging.getLogger('other')
 crawler = logging.getLogger('crawler')
-parser = logging.getLogger('page_crawler')
+parser = logging.getLogger('parser')
+other = logging.getLogger('other')
 storage = logging.getLogger('storage')
-
-__all__ = ['crawler', 'parser', 'other', 'storage']
