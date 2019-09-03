@@ -12,7 +12,10 @@ from db.dao import (
 # This url is just for original weibos.
 # If you want other kind of search, you can change the url below
 # But if you change this url, maybe you have to rewrite some part of the parse code
-URL = 'http://s.weibo.com/weibo/{}&scope=ori&suball=1&page={}'
+URL = 'http://s.weibo.com/weibo?q=%23{}%23&scope=ori&suball=1&page={}'
+
+# 原创微博URL格式：https://s.weibo.com/weibo?q=%23BA挑战%23&scope=ori&suball=1&page=1
+
 # Use this if results are too little
 # URL = 'http://s.weibo.com/weibo/{}&nodup=1&page={}'
 LIMIT = get_max_search_page() + 1
