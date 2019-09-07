@@ -4,6 +4,9 @@
 __pycache__/
 logs
 celerybeat-schedule.db
+celerybeat.pid
+celerybeat-schedule
+dump.rdb
 .env
 config/spider.yaml
 *.pyc
