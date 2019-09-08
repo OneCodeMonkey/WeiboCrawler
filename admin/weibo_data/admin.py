@@ -29,7 +29,7 @@ class WbUserAdmin(ReadOnlyModelAdmin):
 
 
 class WeiboDataAdmin(ReadOnlyModelAdmin):
-    list_display = ('weibo_id', 'uid', 'create_time', 'weibo_cont', 'repost_num', 'comment_num', 'praise_num')
+    list_display = ('weibo_id', 'uid', 'create_time', 'weibo_cont', 'repost_num', 'comment_num', 'praise_num', 'comment_crawled', 'repost_crawled')
     search_fields = ['weibo_cont', 'weibo_id']
     list_per_page = 20
 
