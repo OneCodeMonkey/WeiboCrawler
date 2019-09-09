@@ -7,7 +7,7 @@ from config import get_max_search_page
 from page_parse import search as parse_search
 from db.dao import (KeywordsOper, KeywordsDataOper, WbDataOper)
 
-URL = 'http://s.weibo.com/weibo?q={}&scope=ori&nodup=1&page={}'
+URL = 'http://s.weibo.com/weibo?q={}&nodup=1&page={}'
 
 LIMIT = get_max_search_page() + 1
 
