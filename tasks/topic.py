@@ -28,7 +28,7 @@ def search_keyword_topic(keyword, keyword_id, start_time='', end_time=''):
         search_list = parse_search.get_search_info(search_page)
         if cur_page == 1:
             cur_page += 1
-        elif 'noresult tit' not in search_page:
+        elif '您可以尝试更换关键词，再次搜索。' not in search_page:
             cur_page += 1
         else:
             crawler.info('Keyword {} has been crawled in this turn' . format(keyword))
