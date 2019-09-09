@@ -38,7 +38,9 @@ def search_keyword_topic(keyword, keyword_id, start_time='', end_time=''):
             rs = WbDataOper.get_wb_by_mid(wb_data.weibo_id)
             KeywordsDataOper.insert_keyword_wbid(keyword_id, wb_data.weibo_id)
             if rs:
-                crawler.info('Weibo {} has been crawled, skip it.' . format(wb_data.weibo_id))
+                crawler.info('Weibo {} has been crawled, overwrite it.' . format(wb_data.weibo_id))
+                WbDataOper.add_one(wb_data)
+                app.send_task('tasks.user.crawl_person_infos', args=(wb_data.uid,), queue='user_crawler',routing_key='for_user_info')
                 continue
             else:
                 WbDataOper.add_one(wb_data)
