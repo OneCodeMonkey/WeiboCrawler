@@ -16,7 +16,8 @@ OneHour = datetime.timedelta(hours=1)
 time1 = start_time
 time2 = start_time + OneHour
 
-def get_topic_data(keyword, start_time, end_time):
+
+def get_topic_data(keyword, start_time='', end_time=''):
     from tasks.topic import search_keyword_topic
     search_keyword_topic(keyword, 33, start_time, end_time)
 
