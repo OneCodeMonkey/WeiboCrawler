@@ -12,3 +12,4 @@ config/spider.yaml
 *.pyc
 .cache/
 */.cache/
+nohup.out
