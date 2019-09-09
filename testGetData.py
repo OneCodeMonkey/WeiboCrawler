@@ -1,8 +1,8 @@
 # -*- coding=UTF-8 -*-
 import requests
 
-def get_search_data():
-    from tasks.search import search_keyword
-    search_keyword("#香港事件#",5)
+def get_topic_data():
+    from tasks.topic import search_keyword_topic
+    search_keyword_topic("#香港事件#",33)
 
-get_search_data()
+get_topic_data()
