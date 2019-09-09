@@ -7,7 +7,7 @@ from config import get_max_search_page
 from page_parse import search as parse_search
 from db.dao import (KeywordsOper, KeywordsDataOper, WbDataOper)
 
-URL = 'https://s.weibo.com/weibo?q={$topic}&typeall=1&suball=1&timescope=custom:{$startTime}:{$endTime}&Refer=g'
+URL = 'http://s.weibo.com/weibo?q={}&scope=ori&nodup=1&page={}'
 
 LIMIT = get_max_search_page() + 1
 
