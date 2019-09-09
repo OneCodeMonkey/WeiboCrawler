@@ -17,7 +17,7 @@ broker_and_backend = get_broker_and_backend()
 
 tasks = [
     'tasks.login', 'tasks.user', 'tasks.search', 'tasks.home', 'tasks.comment',
-    'tasks.repost', 'tasks.downloader', 'tasks.praise'
+    'tasks.repost', 'tasks.downloader', 'tasks.praise', 'tasks.topic'
 ]
 
 if isinstance(broker_and_backend, list):
@@ -74,6 +74,11 @@ app.conf.update(
             'schedule': timedelta(hours=10),
             'options': {'queue': 'dialogue_crawler', 'routing_key': 'dialogue_info'}
         },
+        'topic_task': {
+            'task': 'tasks.topic.execute_topic_task',
+            'schedule': timedelta(hours=2),
+            'options': {'queue': 'topic_crawler', 'routing_key': 'topic_info'}
+        },
     },
     CELERY_QUEUES=(
         Queue('login_queue', exchange=Exchange('login_queue', type='direct'), routing_key='for_login'),
@@ -102,6 +107,8 @@ app.conf.update(
               routing_key='dialogue_page_info'),
 
         Queue('download_queue', exchange=Exchange('download_queue', type='direct'), routing_key='for_download'),
+
+        Queue('topic_crawler', exchange=Exchange('topic_crawler', type='direct'), routing_key='topic_info'),
     ),
 
 )
