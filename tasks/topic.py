@@ -14,7 +14,7 @@ LIMIT = get_max_search_page() + 1
 
 
 @app.task(ignore_result = True)
-def search_keyword_topic(keyword, keyword_id, start_time, end_time):
+def search_keyword_topic(keyword, keyword_id, start_time='', end_time=''):
     crawler.info('We are crawling weibo topic content with keyword "{}"' . format(keyword))
     cur_page = 1
     encode_keyword = url_parse.quote(keyword)
