@@ -7,18 +7,19 @@ from config import get_max_search_page
 from page_parse import search as parse_search
 from db.dao import (KeywordsOper, KeywordsDataOper, WbDataOper)
 
-URL = 'http://s.weibo.com/weibo?q={}&nodup=1&page={}'
+# url示例 http://s.weibo.com/weibo?q={}&nodup=1&&timescope=custom:2019-09-09-0:2019-09-09-12&page={}
+URL = 'http://s.weibo.com/weibo?q={}&nodup=1&&timescope=custom:{}:{}&page={}'
 
 LIMIT = get_max_search_page() + 1
 
 
 @app.task(ignore_result = True)
-def search_keyword_topic(keyword, keyword_id):
+def search_keyword_topic(keyword, keyword_id, start_time, end_time):
     crawler.info('We are crawling weibo topic content with keyword "{}"' . format(keyword))
     cur_page = 1
     encode_keyword = url_parse.quote(keyword)
     while cur_page < LIMIT:
-        cur_url = URL.format(encode_keyword, cur_page)
+        cur_url = URL.format(encode_keyword, start_time, end_time, cur_page)
         search_page = get_page(cur_url, auth_level=2)
         if not search_page:
             crawler.info('No such result for keyword {}, the source page is {}' . format(keyword, search_page))
