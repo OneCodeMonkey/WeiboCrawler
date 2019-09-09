@@ -97,15 +97,15 @@ def get_weibo_info(each, html):
         wb_data.weibo_uid = ''
 
     try:
-        wb_data.repost_num = int(each.find(attrs={'class': 'card-act'}).find_all('li')[0].find('a').text.split('/')[-1])
+        wb_data.repost_num = int(each.find(attrs={'class': 'card-act'}).find_all('li')[1].find('a').text.split(' ')[-1])
     except (AttributeError, ValueError):
         wb_data.repost_num = 0
     try:
-        wb_data.comment_num = int(each.find(attrs={'class': 'card-act'}).find_all('li')[1].find('a').text.split('/')[-1])
+        wb_data.comment_num = int(each.find(attrs={'class': 'card-act'}).find_all('li')[2].find('a').text.split(' ')[-1])
     except (AttributeError, ValueError):
         wb_data.comment_num = 0
     try:
-        wb_data.praise_num = int(each.find(attrs={'class': 'card-act'}).find_all('li')[2].find('a').find('em').text)
+        wb_data.praise_num = int(each.find(attrs={'class': 'card-act'}).find_all('li')[3].find('a').find('em').text)
     except (AttributeError, ValueError):
         wb_data.praise_num = 0
 
