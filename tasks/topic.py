@@ -34,6 +34,12 @@ def search_keyword_topic(keyword, keyword_id, start_time='', end_time=''):
             crawler.info('Keyword {} has been crawled in this turn' . format(keyword))
             return
 
+        tempCount = 1
+        for wb_data in search_list:
+            tempCount += 1
+
+        print('列表元素个数', tempCount)
+
         for wb_data in search_list:
             rs = WbDataOper.get_wb_by_mid(wb_data.weibo_id)
             KeywordsDataOper.insert_keyword_wbid(keyword_id, wb_data.weibo_id)
