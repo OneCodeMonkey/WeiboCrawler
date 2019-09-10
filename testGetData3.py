@@ -8,8 +8,8 @@ STARTTIME = '2019-08-23 14:10:00'   # 上榜前48小时
 ENDTIME = '2019-08-27 14:10:00'     # 上榜后48小时
 KEYWORD = '#假牙耳环#'
 
-start_time = datetime.datetime.strptime(STARTTIME, "%Y-%m-%d %H:%M:%S");
-end_time = datetime.datetime.strptime(ENDTIME, "%Y-%m-%d %H:%M:%S");
+start_time = datetime.datetime.strptime(STARTTIME, "%Y-%m-%d %H:%M:%S")
+end_time = datetime.datetime.strptime(ENDTIME, "%Y-%m-%d %H:%M:%S")
 
 OneHour = datetime.timedelta(hours=1)
 
