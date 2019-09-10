@@ -4,9 +4,9 @@ import time
 import datetime
 from logger import crawler
 
-STARTTIME = '2019-09-04 22:50:00'
-ENDTIME = '2019-09-08 22:50:00'
-KEYWORD = '#倪妮慵懒造型#'
+STARTTIME = '2019-06-07 09:30:00'
+ENDTIME = '2019-06-11 09:30:00'
+KEYWORD = '#比没考好还难过的事#'
 
 start_time = datetime.datetime.strptime(STARTTIME, "%Y-%m-%d %H:%M:%S");
 end_time = datetime.datetime.strptime(ENDTIME, "%Y-%m-%d %H:%M:%S");
