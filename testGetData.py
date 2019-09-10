@@ -21,6 +21,7 @@ def get_topic_data(keyword, start_time='', end_time=''):
     from tasks.topic import search_keyword_topic
     search_keyword_topic(keyword, 33, start_time, end_time)
 
+
 while 1:
     while time1 < end_time:
         start_time_str = time1.strftime("%Y-%m-%d-%H")
