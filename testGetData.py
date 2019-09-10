@@ -33,3 +33,6 @@ while 1:
         time1 = time1 + OneHour
         time2 = time2 + OneHour
 
+    time1 = start_time
+    time2 = start_time + OneHour
+
