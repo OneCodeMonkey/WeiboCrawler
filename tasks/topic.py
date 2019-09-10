@@ -4,8 +4,8 @@ from logger import crawler
 from .workers import app
 from page_get import get_page
 from config import get_max_search_page
-from page_parse import search as parse_search
-from db.dao import (KeywordsOper, KeywordsDataOper, WbDataOper)
+from page_parse import topic as parse_topic
+from db.dao import (KeywordsOper, KeywordsDataOper, WbTopicOper)
 
 # url示例 http://s.weibo.com/weibo?q={}&nodup=1&&timescope=custom:2019-09-09-0:2019-09-09-12&page={}
 URL = 'http://s.weibo.com/weibo?q={}&nodup=1&&timescope=custom:{}:{}&page={}'
@@ -25,7 +25,7 @@ def search_keyword_topic(keyword, keyword_id, start_time='', end_time=''):
             crawler.info('No such result for keyword {}, the source page is {}' . format(keyword, search_page))
             return
 
-        search_list = parse_search.get_search_info(search_page)
+        search_list = parse_topic.get_search_info(search_page)
         if cur_page == 1:
             cur_page += 1
         elif '您可以尝试更换关键词' not in search_page:
@@ -35,14 +35,14 @@ def search_keyword_topic(keyword, keyword_id, start_time='', end_time=''):
             return
 
         for wb_data in search_list:
-            rs = WbDataOper.get_wb_by_mid(wb_data.weibo_id)
+            # rs = WbTopicOper.get_wb_by_mid(wb_data.weibo_id)
             KeywordsDataOper.insert_keyword_wbid(keyword_id, wb_data.weibo_id)
-            if rs:
-                crawler.info('Weibo {} has been crawled, skip it.' . format(wb_data.weibo_id))
-                continue
-            else:
-                WbDataOper.add_one(wb_data)
-                app.send_task('tasks.user.crawl_person_infos', args=(wb_data.uid,), queue='user_crawler', routing_key='for_user_info')
+            # if rs:
+            #     crawler.info('Weibo {} has been crawled, skip it.' . format(wb_data.weibo_id))
+            #     continue
+            # else:
+            WbTopicOper.add_one(wb_data)
+            app.send_task('tasks.user.crawl_person_infos', args=(wb_data.uid,), queue='user_crawler', routing_key='for_user_info')
 
 
 @app.task(ignore_result = True)
