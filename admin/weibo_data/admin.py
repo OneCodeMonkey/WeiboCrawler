@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import WbUser, WeiboData
+from .models import WbUser, WeiboData, WeiboTopic
 
 
 class ReadOnlyModelAdmin(admin.ModelAdmin):
@@ -34,5 +34,12 @@ class WeiboDataAdmin(ReadOnlyModelAdmin):
     list_per_page = 20
 
 
+class WeiboTopicAdmin(ReadOnlyModelAdmin):
+    list_display = ('weibo_id', 'uid', 'create_time', 'weibo_cont', 'repost_num', 'comment_num', 'praise_num', 'crawl_time')
+    search_fields = ['weibo_cont', 'weibo_id']
+    list_per_page = 20
+
+
 admin.site.register(WbUser, WbUserAdmin)
 admin.site.register(WeiboData, WeiboDataAdmin)
+admin.site.register(WeiboTopic, WeiboTopicAdmin)
