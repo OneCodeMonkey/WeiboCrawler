@@ -22,13 +22,14 @@ def get_topic_data(keyword, start_time='', end_time=''):
     search_keyword_topic(keyword, 33, start_time, end_time)
 
 
-while time1 < end_time:
-    start_time_str = time1.strftime("%Y-%m-%d-%H")
-    end_time_str = time2.strftime("%Y-%m-%d-%H")
-    print(start_time_str, '--', end_time_str)
+while 1:
+    while time1 < end_time:
+        start_time_str = time1.strftime("%Y-%m-%d-%H")
+        end_time_str = time2.strftime("%Y-%m-%d-%H")
+        print(start_time_str, '--', end_time_str)
 
-    crawler.info("we are crawling keyword:{}, timerange {}:{} content" . format(KEYWORD, start_time_str, end_time_str))
-    get_topic_data(KEYWORD, start_time_str, end_time_str)
-    time1 = time1 + OneHour
-    time2 = time2 + OneHour
+        crawler.info("we are crawling keyword:{}, timerange {}:{} content" . format(KEYWORD, start_time_str, end_time_str))
+        get_topic_data(KEYWORD, start_time_str, end_time_str)
+        time1 = time1 + OneHour
+        time2 = time2 + OneHour
 
