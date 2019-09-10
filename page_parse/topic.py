@@ -125,7 +125,7 @@ def get_weibo_info(each, html):
             parser.error('Failed to get weibo cont, the error is {}, the page source is {}'.format(why, html))
             return None
 
-    wb_data.crawl_time = time.time().strftime("%Y-%m-%d %H:%M")
+    wb_data.crawl_time = datetime.datetime.today().strftime("%Y-%m-%d %H:%M")
 
     return wb_data, is_all_cont
 
