@@ -4,9 +4,9 @@ import time
 import datetime
 from logger import crawler
 
-STARTTIME = '2019-08-21 11:00:00'   # 上榜前48小时
-ENDTIME = '2019-08-25 11:00:00'     # 上榜后48小时
-KEYWORD = '#安宰贤的维基百科#'
+STARTTIME = '2019-07-13 19:00:00'   # 上榜前48小时
+ENDTIME = '2019-07-17 19:00:00'     # 上榜后48小时
+KEYWORD = '#宋祖儿马卡龙粉发卡#'
 
 start_time = datetime.datetime.strptime(STARTTIME, "%Y-%m-%d %H:%M:%S");
 end_time = datetime.datetime.strptime(ENDTIME, "%Y-%m-%d %H:%M:%S");
