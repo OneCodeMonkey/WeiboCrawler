@@ -55,3 +55,26 @@ class WeiboData(models.Model):
         app_label = 'weibo_data'
 
 
+class WeiboTopic(models.Model):
+    weibo_id = models.CharField('微博ID', max_length=20, unique=True, blank=False)
+    weibo_cont = models.TextField('内容')
+    repost_num = models.IntegerField('回复数', default=0)
+    comment_num = models.IntegerField('评论数', default=0)
+    praise_num = models.IntegerField('点赞数', default=0)
+    uid = models.CharField('用户Id', max_length=20, blank=False)
+    is_origin = models.IntegerField('是否为源微博', default=1)
+    device = models.CharField('发布设备', max_length=200)
+    weibo_url = models.CharField('URL', max_length=300)
+    create_time = models.CharField('发布时间', max_length=200)
+    crawl_time = models.CharField('抓取时间', max_length=200)
+
+    def __str__(self):
+        return self.weibo_id
+
+    class Meta:
+        db_table = 'weibo_topic'
+        verbose_name = '微博信息（时序数据）'
+        verbose_name_plural = '微博信息（时序数据）'
+        app_label = 'weibo_data'
+
+
