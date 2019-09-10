@@ -132,5 +132,28 @@ weibo_dialogue = Table("weibo_dialogue", metadata,
                        Column("dialogue_rounds", INTEGER),
                        )
 
+# weibo topic info data（时序性数据表）
+weibo_topic = Table('weibo_topic', metadata,
+                   Column("id", INTEGER, primary_key=True, autoincrement=True),
+                   Column("weibo_id", String(200), unique=True),
+                   Column("weibo_cont", Text),
+                   Column("weibo_img", String(1000)),
+                   Column("weibo_img_path", String(1000), server_default=''),
+                   Column("weibo_video", String(1000)),
+                   Column("repost_num", INTEGER, default=0, server_default='0'),
+                   Column("comment_num", INTEGER, default=0, server_default='0'),
+                   Column("praise_num", INTEGER, default=0, server_default='0'),
+                   Column("uid", String(20)),
+                   Column("is_origin", INTEGER, default=1, server_default='1'),
+                   Column("device", String(200), default='', server_default=''),
+                   Column("weibo_url", String(300), default='', server_default=''),
+                   Column("create_time", String(200)),
+                   Column("comment_crawled", INTEGER, default=0, server_default='0'),
+                   Column("repost_crawled", INTEGER, default=0, server_default='0'),
+                   Column("dialogue_crawled", INTEGER, default=0, server_default='0'),
+                   Column("praise_crawled", INTEGER, default=0, server_default='0'),
+                   Column("crawl_time", String(200)),
+                   )
+
 __all__ = ['login_info', 'wbuser', 'seed_ids', 'keywords', 'weibo_data', 'keywords_wbdata', 'weibo_comment',
-           'weibo_repost', 'user_relation', 'weibo_dialogue', 'weibo_praise']
+           'weibo_repost', 'user_relation', 'weibo_dialogue', 'weibo_praise', 'weibo_topic']
