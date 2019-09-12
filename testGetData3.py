@@ -4,7 +4,7 @@ import time
 import datetime
 from logger import crawler
 
-STARTTIME = '2019-09-09 11:00:00'   # 上榜时间 2019-09-11 20:50
+STARTTIME = '2019-09-11 10:00:00'   # 上榜时间 2019-09-11 20:50
 ENDTIME = '2019-09-12 16:50:00'
 KEYWORD = '#情侣消费观不同能磨合吗#'
 
