@@ -5,7 +5,7 @@ import datetime
 from logger import crawler
 
 STARTTIME = '2019-09-09 11:00:00'   # 上榜时间 2019-09-11 20:50
-ENDTIME = '2019-09-12 09:50:00'
+ENDTIME = '2019-09-12 16:50:00'
 KEYWORD = '#情侣消费观不同能磨合吗#'
 
 start_time = datetime.datetime.strptime(STARTTIME, "%Y-%m-%d %H:%M:%S")
@@ -21,14 +21,17 @@ def get_topic_data(keyword, start_time='', end_time=''):
     from tasks.topic import search_keyword_topic
     search_keyword_topic(keyword, 33, start_time, end_time)
 
+while 1:
+    while time1 < end_time:
+        start_time_str = time1.strftime("%Y-%m-%d-%H")
+        end_time_str = time2.strftime("%Y-%m-%d-%H")
+        print(start_time_str, '--', end_time_str)
 
-while time1 < end_time:
-    start_time_str = time1.strftime("%Y-%m-%d-%H")
-    end_time_str = time2.strftime("%Y-%m-%d-%H")
-    print(start_time_str, '--', end_time_str)
+        crawler.info("we are crawling keyword:{}, timerange {}:{} content" . format(KEYWORD, start_time_str, end_time_str))
+        get_topic_data(KEYWORD, start_time_str, end_time_str)
+        time1 = time1 + OneHour
+        time2 = time2 + OneHour
 
-    crawler.info("we are crawling keyword:{}, timerange {}:{} content" . format(KEYWORD, start_time_str, end_time_str))
-    get_topic_data(KEYWORD, start_time_str, end_time_str)
-    time1 = time1 + OneHour
-    time2 = time2 + OneHour
+    time1 = start_time
+    time2 = start_time + OneHour
 
