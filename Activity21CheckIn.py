@@ -4,7 +4,7 @@ import time
 import datetime
 from logger import crawler
 
-STARTTIME = '2019-10-19 10:00:00'
+STARTTIME = '2019-10-21 00:00:00'
 ENDTIME = '2019-10-21 20:00:00'
 KEYWORD = '#21天挑战计划#'
 
