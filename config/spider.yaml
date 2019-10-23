@@ -34,7 +34,7 @@ running_mode: normal
 # In normal mode, the spider won't crawl the weibo content of "展开全文" when execute home crawl tasks or search crawl
 # tasks, so the speed will be much quicker.
 # In accurate mode,the spider will crawl the info of "展开全文",which will be slower, but more details will be given.
-crawling_mode: normal
+crawling_mode: accurate
 
 
 # the max number of each cookie can be shared
