@@ -56,11 +56,11 @@ images_path: ''
 image_type: large
 
 db:
-    host: 127.0.0.1
+    host: rm-uf68318v3edc86zu2rw.mysql.rds.aliyuncs.com
     port: 3306
-    user: root
-    password: 123456
-    db_name: weibo
+    user: open_api
+    password: OpenApITf2015
+    db_name: thefair_weibo
     db_type: mysql
 
 redis:
