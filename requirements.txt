@@ -10,4 +10,4 @@ flower==0.9.1
 urllib3==1.22
 django-suit==0.2.25
 gunicorn==19.7.1
-kombu==4.3.4
+kombu==4.6.4
