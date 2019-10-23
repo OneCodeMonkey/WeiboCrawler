@@ -4,7 +4,7 @@ from sqlalchemy import (
 from .basic import metadata
 
 # login table
-login_info = Table("login_info", metadata,
+login_info = Table("thefair_login_info", metadata,
                    Column("id", INTEGER, primary_key=True, autoincrement=True),
                    Column("name", String(100), unique=True),
                    Column("password", String(200)),
@@ -12,7 +12,7 @@ login_info = Table("login_info", metadata,
                    )
 
 # weibo user info
-wbuser = Table("wbuser", metadata,
+wbuser = Table("thefair_wbuser", metadata,
                Column("id", INTEGER, primary_key=True, autoincrement=True),
                Column("uid", String(20), unique=True),
                Column("name", String(200), default='', server_default=''),
@@ -35,7 +35,7 @@ wbuser = Table("wbuser", metadata,
                )
 
 # seed ids for user crawling
-seed_ids = Table('seed_ids', metadata,
+seed_ids = Table('thefair_seed_ids', metadata,
                  Column("id", INTEGER, primary_key=True, autoincrement=True),
                  Column("uid", String(20), unique=True),
                  Column("is_crawled", INTEGER, default=0, server_default='0'),
@@ -44,14 +44,14 @@ seed_ids = Table('seed_ids', metadata,
                  )
 
 # search keywords table
-keywords = Table('keywords', metadata,
+keywords = Table('thefair_keywords', metadata,
                  Column("id", INTEGER, primary_key=True, autoincrement=True),
                  Column("keyword", String(200), unique=True),
                  Column("enable", INTEGER, default=1, server_default='1'),
                  )
 
 # weibo info data
-weibo_data = Table('weibo_data', metadata,
+weibo_data = Table('thefair_weibo_data', metadata,
                    Column("id", INTEGER, primary_key=True, autoincrement=True),
                    Column("weibo_id", String(200), unique=True),
                    Column("weibo_cont", Text),
@@ -73,14 +73,14 @@ weibo_data = Table('weibo_data', metadata,
                    )
 
 # keywords and weibodata relationship
-keywords_wbdata = Table('keywords_wbdata', metadata,
+keywords_wbdata = Table('thefair_keywords_wbdata', metadata,
                         Column("id", INTEGER, primary_key=True, autoincrement=True),
                         Column("keyword_id", INTEGER),
                         Column("wb_id", String(200)),
                         )
 
 # comment table
-weibo_comment = Table('weibo_comment', metadata,
+weibo_comment = Table('thefair_weibo_comment', metadata,
                       Column("id", INTEGER, primary_key=True, autoincrement=True),
                       Column("comment_id", String(50), unique=True),
                       Column("comment_cont", Text),
@@ -91,7 +91,7 @@ weibo_comment = Table('weibo_comment', metadata,
                       )
 
 # praise table
-weibo_praise = Table('weibo_praise', metadata,
+weibo_praise = Table('thefair_weibo_praise', metadata,
                       Column("id", INTEGER, primary_key=True, autoincrement=True),
                       Column("user_id", String(20)),
                       Column("weibo_id", String(200)),
@@ -99,7 +99,7 @@ weibo_praise = Table('weibo_praise', metadata,
                       )
 
 # repost table
-weibo_repost = Table("weibo_repost", metadata,
+weibo_repost = Table("thefair_weibo_repost", metadata,
                      Column("id", INTEGER, primary_key=True, autoincrement=True),
                      Column("user_id", String(20)),
                      Column("user_name", String(200)),
@@ -113,7 +113,7 @@ weibo_repost = Table("weibo_repost", metadata,
                      )
 
 # relations about user and there fans and follows
-user_relation = Table("user_relation", metadata,
+user_relation = Table("thefair_user_relation", metadata,
                       Column('id', INTEGER, primary_key=True, autoincrement=True),
                       Column('user_id', String(20)),
                       Column('follow_or_fans_id', String(20)),
@@ -124,7 +124,7 @@ user_relation = Table("user_relation", metadata,
                       )
 
 # dialogue table
-weibo_dialogue = Table("weibo_dialogue", metadata,
+weibo_dialogue = Table("thefair_weibo_dialogue", metadata,
                        Column("id", INTEGER, primary_key=True, autoincrement=True),
                        Column("dialogue_id", String(50), unique=True),
                        Column("weibo_id", String(200)),
@@ -133,7 +133,7 @@ weibo_dialogue = Table("weibo_dialogue", metadata,
                        )
 
 # weibo topic info data（时序性数据表）
-weibo_topic = Table('weibo_topic', metadata,
+weibo_topic = Table('thefair_weibo_topic', metadata,
                    Column("id", INTEGER, primary_key=True, autoincrement=True),
                    Column("weibo_id", String(200), unique=True),
                    Column("weibo_cont", Text),
