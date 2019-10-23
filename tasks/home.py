@@ -78,8 +78,9 @@ def crawl_weibo_datas(uid):
         WbDataOper.add_all(weibo_datas)
 
         # If the weibo isn't created after the given time, jump out the loop
-        if len(weibo_datas) != length_weibo_datas:
-            break
+
+        # if len(weibo_datas) != length_weibo_datas:        // 这里会影响断点续爬
+        #     break
 
         domain = public.get_userdomain(html)
         cur_time = int(time.time()*1000)
