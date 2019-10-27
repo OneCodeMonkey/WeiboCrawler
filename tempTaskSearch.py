@@ -25,7 +25,6 @@ for topic in topics:
         search_keyword_topic(keyword, 33, start_time, end_time)
 
 
-
     while time1 < end_time:
         start_time_str = time1.strftime("%Y-%m-%d-%H")
         end_time_str = time2.strftime("%Y-%m-%d-%H")
