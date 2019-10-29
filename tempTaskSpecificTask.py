@@ -5,7 +5,7 @@ import datetime
 from logger import crawler
 
 STARTTIME = '2019-10-19 07:00:00'
-ENDTIME = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
+ENDTIME = time.strftime('%Y-%m-%d',time.localtime(time.time())) + ' 00:00:00'
 KEYWORD = '#21天挑战计划#'
 
 start_time = datetime.datetime.strptime(STARTTIME, "%Y-%m-%d %H:%M:%S")
@@ -35,5 +35,5 @@ while 1:
 
     time1 = start_time
     time2 = start_time + OneHour
-    end_time = datetime.datetime.strptime(time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time())), "%Y-%m-%d %H:%M:%S")
+    end_time = datetime.datetime.strptime(time.strftime('%Y-%m-%d',time.localtime(time.time())) + ' 00:00:00', "%Y-%m-%d %H:%M:%S")
 
