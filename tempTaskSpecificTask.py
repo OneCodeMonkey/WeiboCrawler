@@ -5,7 +5,7 @@ import datetime
 from logger import crawler
 
 STARTTIME = '2019-11-20 00:00:00'
-ENDTIME = time.strftime('%Y-%m-%d',time.localtime(time.time())) + ' 00:00:00'
+ENDTIME = time.strftime('%Y-%m-%d',time.localtime(time.time())) + ' 23:59:00'
 KEYWORD = '#周冬雨看自己假料看哭#'
 
 start_time = datetime.datetime.strptime(STARTTIME, "%Y-%m-%d %H:%M:%S")
