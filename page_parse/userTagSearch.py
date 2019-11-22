@@ -20,4 +20,10 @@ IMG_PATH = get_images_path()
 
 @parse_decorator('')
 def get_user_tag_search_info(html):
-    return html
+    content = html
+    soup = BeautifulSoup(content.encode('utf-8', 'ignore').decode('utf-8'), "html.parser")
+    user_list = soup.find_all(attrs={'class':'s-btn-c'})
+    for item in user_list:
+        print(item)
+
+    return user_list
