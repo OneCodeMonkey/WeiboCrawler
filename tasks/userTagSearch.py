@@ -31,7 +31,7 @@ def search_user_tag_list(tag):
             crawler.info('tag {} has been crawled in this turn' . format(tag))
             return
 
-        crawler.info("search_list" + search_list)
+        crawler.info("search_list" + "&&" . join(search_list))
 
 @app.task(ignore_result = True)
 def execute_search_user_tag_task():
