@@ -23,7 +23,7 @@ def get_user_tag_search_info(html):
     content = html
     soup = BeautifulSoup(content.encode('utf-8', 'ignore').decode('utf-8'), "html.parser")
     user_list = soup.find_all(attrs={'class':'s-btn-c'})
-    for item in user_list:
-        print(item)
+    # for item in user_list:
+    #     print(item)
 
     return user_list
