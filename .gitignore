@@ -13,3 +13,4 @@ config/spider.yaml
 .cache/
 */.cache/
 nohup.out
+node_tasks/sql/
