@@ -1,1 +1,0 @@
-select count(a.weibo_id) from thefair_weibo_data a left join thefair_wbuser b on a.uid = b.uid where b.tags like "%电竞%" limit 1000000;
