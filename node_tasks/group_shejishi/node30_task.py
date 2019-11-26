@@ -1,0 +1,14 @@
+from tasks.user import crawl_person_infos
+from tasks.home import crawl_weibo_datas
+import time
+
+# 设计师
+uids = [2647096330,2266994155,3800570957,1791841427,2991979713,5350827310,5236732138,5146475650,2694155861,2284065274,2136120710,5013858158,5933562022,3229277993,2918960271,2561246670,2246416295,2351461912,2318474673,]
+
+for uid in uids:
+    crawl_person_infos(uid)
+
+    crawl_weibo_datas(uid)
+    time.sleep(11)
+
+
