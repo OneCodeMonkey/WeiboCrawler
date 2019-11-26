@@ -1,0 +1,12 @@
+#! /bin/sh
+# 打印输出
+sudo echo '======上传代码到服务器======'
+# 进入目录
+cd /home/thefair/www/WeiboCrawler
+#
+unset GIT_DIR
+
+git pull origin user_tag_search_dev
+
+sudo echo $(date) >> hook.log
+sudo echo "======代码更新完成======"
