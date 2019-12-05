@@ -4,9 +4,9 @@ import time
 import datetime
 from logger import crawler
 
-STARTTIME = '2019-11-01 00:00:00'
+STARTTIME = '2019-12-05 11:00:00'
 ENDTIME = time.strftime('%Y-%m-%d',time.localtime(time.time())) + ' 00:00:00'
-KEYWORD = '#21天挑战计划#'
+KEYWORD = '#吵架和冷战哪个更伤感情#'
 
 start_time = datetime.datetime.strptime(STARTTIME, "%Y-%m-%d %H:%M:%S")
 end_time = datetime.datetime.strptime(ENDTIME, "%Y-%m-%d %H:%M:%S")
