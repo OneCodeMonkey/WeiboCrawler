@@ -54,7 +54,7 @@ def get_page(url, auth_level=2, is_ajax=False, need_proxy=False):
     while count < MAX_RETRIES:
         if auth_level == 2:
             name_cookies = Cookies.fetch_cookies()
-            crawler.info('cookies:' + name_cookies)
+            crawler.info('cookies:')
             if name_cookies is None:
                 crawler.warning('No cookie in cookies pool. Maybe all accounts are banned, or all cookies are expired')
                 send_email()
