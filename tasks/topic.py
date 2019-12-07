@@ -27,7 +27,7 @@ def search_keyword_topic(keyword, keyword_id, start_time='', end_time=''):
             return
 
         search_list = parse_topic.get_search_info(search_page)
-        crawler.info(search_list + '--search_list')
+        crawler.info('--search_list')
         if cur_page == 1:
             cur_page += 1
         elif '您可以尝试更换关键词' not in search_page:
