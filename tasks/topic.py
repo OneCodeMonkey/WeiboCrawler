@@ -36,7 +36,7 @@ def search_keyword_topic(keyword, keyword_id, start_time='', end_time=''):
 
         for wb_data in search_list:
             rs = WbDataOper.get_wb_by_mid(wb_data.weibo_id)
-            KeywordsDataOper.insert_keyword_wbid(keyword_id, wb_data.weibo_id)
+            # KeywordsDataOper.insert_keyword_wbid(keyword_id, wb_data.weibo_id)
             if rs:
                 crawler.info('Weibo {} has been crawled, skip it.' . format(wb_data.weibo_id))
                 continue
