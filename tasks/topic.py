@@ -21,11 +21,13 @@ def search_keyword_topic(keyword, keyword_id, start_time='', end_time=''):
     while cur_page < LIMIT:
         cur_url = URL.format(encode_keyword, start_time, end_time, cur_page)
         search_page = get_page(cur_url, auth_level=2)
+        crawler.info('get_page')
         if not search_page:
             crawler.info('No such result for keyword {}, the source page is {}' . format(keyword, search_page))
             return
 
         search_list = parse_topic.get_search_info(search_page)
+        crawler.info(search_list + '--search_list')
         if cur_page == 1:
             cur_page += 1
         elif '您可以尝试更换关键词' not in search_page:
@@ -35,6 +37,7 @@ def search_keyword_topic(keyword, keyword_id, start_time='', end_time=''):
             return
 
         for wb_data in search_list:
+            crawler(wb_data + '--wb_data')
             rs = WbDataOper.get_wb_by_mid(wb_data.weibo_id)
             # KeywordsDataOper.insert_keyword_wbid(keyword_id, wb_data.weibo_id)
             if rs:
