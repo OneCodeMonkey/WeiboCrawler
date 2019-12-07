@@ -19,6 +19,7 @@ from decorators import (
 from config import (
     get_timeout, get_crawl_interal, get_excp_interal, get_max_retries)
 
+from logger import crawler
 
 TIME_OUT = get_timeout()
 INTERAL = get_crawl_interal()
@@ -53,12 +54,13 @@ def get_page(url, auth_level=2, is_ajax=False, need_proxy=False):
     while count < MAX_RETRIES:
         if auth_level == 2:
             name_cookies = Cookies.fetch_cookies()
-
+            crawler.info('cookies:' + name_cookies)
             if name_cookies is None:
                 crawler.warning('No cookie in cookies pool. Maybe all accounts are banned, or all cookies are expired')
                 send_email()
                 os.kill(os.getppid(), signal.SIGTERM)
 
+            crawler.info("--1111--")
             # There is no difference between http and https address.
             proxy = {'http': name_cookies[2], 'https': name_cookies[2], }
         else:
@@ -69,10 +71,13 @@ def get_page(url, auth_level=2, is_ajax=False, need_proxy=False):
         try:
             if auth_level == 2:
                 resp = requests.get(url, headers=headers, cookies=name_cookies[1], timeout=TIME_OUT, verify=False, proxies=proxy)
+                crawler.info("--2222--")
             elif auth_level == 1:
                 resp = requests.get(url, headers=headers, cookies=COOKIES, timeout=TIME_OUT, verify=False, proxies=proxy)
+                crawler.info("--3333--")
             else:
                 resp = requests.get(url, headers=headers, timeout=TIME_OUT, verify=False, proxies=proxy)
+                crawler.info("--4444--")
         except (requests.exceptions.ReadTimeout, requests.exceptions.ConnectionError, AttributeError) as e:
             crawler.warning('Excepitons are raised when crawling {}.Here are details:{}'.format(url, e))
             count += 1
@@ -86,28 +91,36 @@ def get_page(url, auth_level=2, is_ajax=False, need_proxy=False):
                 os.kill(os.getppid(), signal.SIGTERM)
         if resp.text:
             page = resp.text.encode('utf-8', 'ignore').decode('utf-8')
+            crawler.info(page + "--5555--")
         else:
+            crawler.info("--6666--")
             count += 1
             continue
         if auth_level == 2:
             # slow down to aviod being banned
             time.sleep(INTERAL)
+            crawler.info("--7777--")
             if is_banned(resp.url) or is_403(page):
                 crawler.warning('Account {} has been banned'.format(name_cookies[0]))
                 LoginInfoOper.freeze_account(name_cookies[0], 0)
                 Cookies.delete_cookies(name_cookies[0])
                 count += 1
+                crawler.info("--8888--")
                 continue
 
             if not is_ajax and not is_complete(page):
+                crawler.info("--9999--")
                 count += 1
                 continue
 
         if is_404(page):
+            crawler.info("--10101010--")
             crawler.warning('{} seems to be 404'.format(url))
             return ''
+        crawler.info("--11111111--")
         Urls.store_crawl_url(url, 1)
         return page
 
+    crawler.info("--12121212--")
     Urls.store_crawl_url(url, 0)
     return ''
