@@ -20,6 +20,7 @@ def search_keyword_topic(keyword, keyword_id, start_time='', end_time=''):
     encode_keyword = url_parse.quote(keyword)
     while cur_page < LIMIT:
         cur_url = URL.format(encode_keyword, start_time, end_time, cur_page)
+        crawler.info(cur_url)
         search_page = get_page(cur_url, auth_level=2)
         crawler.info(search_page . encode('utf-8', 'ignore') . decode('utf-8') + '--get_page')
         if not search_page:
