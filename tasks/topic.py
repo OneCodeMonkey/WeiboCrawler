@@ -21,7 +21,7 @@ def search_keyword_topic(keyword, keyword_id, start_time='', end_time=''):
     while cur_page < LIMIT:
         cur_url = URL.format(encode_keyword, start_time, end_time, cur_page)
         search_page = get_page(cur_url, auth_level=2)
-        crawler.info('get_page')
+        crawler.info(search_page + '--get_page')
         if not search_page:
             crawler.info('No such result for keyword {}, the source page is {}' . format(keyword, search_page))
             return
