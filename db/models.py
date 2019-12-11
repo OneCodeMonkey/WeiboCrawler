@@ -70,7 +70,7 @@ class UserRelation(Base):
         self.follow_or_fans_id = other_id
         self.type = type
         self.from_where = from_where
-        self.crawl_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
+        self.crawl_time = str(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())))
         # if crawl_time:
         #     self.crawl_time = func.now()
         # else:
