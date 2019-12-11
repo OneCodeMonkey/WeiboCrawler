@@ -119,7 +119,7 @@ user_relation = Table("thefair_user_relation", metadata,
                       Column('follow_or_fans_id', String(20)),
                       Column('type', INTEGER),  # 1 stands for fans, 2 stands for follows
                       Column('from_where', String(60)),
-                      Column('crawl_time', DateTime(3))  # DATETIME(6) means save 6 digits milliseconds
+                      Column('crawl_time', String(200))  # DATETIME(6) means save 6 digits milliseconds
                                                          # time is stored in UTC
                       )
 
