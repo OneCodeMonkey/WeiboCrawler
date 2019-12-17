@@ -36,7 +36,7 @@ def crawl_comment_by_page(mid, page_num):
 @app.task(ignore_result=True)
 def crawl_comment_page(mid):
     limit = conf.get_max_comment_page() + 1
-    crawler.info("limit:" + limit)
+    crawler.info("limit:" + str(limit))
     first_page = crawl_comment_by_page(mid, 1)[0]
     crawler.info(first_page + "--first_page")
     total_page = comment.get_total_page(first_page)
