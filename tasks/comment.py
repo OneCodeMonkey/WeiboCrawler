@@ -1,3 +1,4 @@
+import json
 from .workers import app
 from page_parse import comment
 from config import conf
@@ -30,6 +31,9 @@ def crawl_comment_by_page(mid, page_num):
     if page_num == 1:
         WbDataOper.set_weibo_comment_crawled(mid)
 
+    for i in comment_datas:
+        crawler.info(i + "--comment item")
+
     return html, comment_datas
 
 
@@ -40,7 +44,7 @@ def crawl_comment_page(mid):
     first_page = crawl_comment_by_page(mid, 1)[0]
     crawler.info(first_page + "--first_page")
     total_page = comment.get_total_page(first_page)
-    crawler.info(total_page + "--total_page")
+    crawler.info(str(total_page) + "--total_page")
 
     if total_page < limit:
         limit = total_page + 1
