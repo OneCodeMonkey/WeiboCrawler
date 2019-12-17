@@ -3,6 +3,7 @@ import json
 from bs4 import BeautifulSoup
 
 from logger import parser
+from logger import crawler
 from db.models import WeiboComment
 from decorators import parse_decorator
 from utils import parse_emoji
@@ -137,4 +138,6 @@ def get_comment_list(html, wb_id):
             parser.error('解析评论失败，具体信息是{}'.format(e))
         else:
             comment_list.append(wb_comment)
+    for comment_item in comment_list:
+        crawler.info(comment_item + "--comment_item")
     return comment_list

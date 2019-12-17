@@ -29,15 +29,18 @@ def crawl_comment_by_page(mid, page_num):
     CommentOper.add_all(comment_datas)
     if page_num == 1:
         WbDataOper.set_weibo_comment_crawled(mid)
+
     return html, comment_datas
 
 
 @app.task(ignore_result=True)
 def crawl_comment_page(mid):
     limit = conf.get_max_comment_page() + 1
-
+    crawler.info("limit:" + limit)
     first_page = crawl_comment_by_page(mid, 1)[0]
+    crawler.info(first_page + "--first_page")
     total_page = comment.get_total_page(first_page)
+    crawler.info(total_page + "--total_page")
 
     if total_page < limit:
         limit = total_page + 1
