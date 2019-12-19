@@ -19,6 +19,9 @@ def get_html_cont(html):
     if data:
         cont = data.get('html', '')
 
+    crawler.info("--cont, start")
+    crawler.info(json.dumps(cont))
+    crawler.info("--cont, end")
     return cont
 
 
