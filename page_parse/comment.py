@@ -69,45 +69,69 @@ def get_comment_list(html, wb_id):
     comment_list = list()
     comments = soup.find(attrs={'node-type': 'comment_list'}).find_all(attrs={'class': 'list_li S_line1 clearfix'})
 
+    crawler.info("--comments start")
+    crawler.info(json.encoder(comments))
+    crawler.info("--comments end")
+
     for comment in comments:
         wb_comment = WeiboComment()
+
+        crawler.info("--comment start")
+        crawler.info(json.encoder(comment))
+        crawler.info("--comment end")
+
         try:
             cont = []
             first_author=True
             first_colon=True
             for content in comment.find(attrs={'class': 'WB_text'}).contents:
                 if not content:
+                    crawler.info("--1111--")
                     continue
                 if content.name =='a':
+                    crawler.info("--2222--")
                     if first_author:
                         first_author=False
+                        crawler.info("--3333--")
                         continue
                     else:
+                        crawler.info("--4444--")
                         if content.text:
+                            crawler.info("--5555--")
                             cont.append(content.text)
                     
                 elif content.name=='img':
+                    crawler.info("--6666--")
                     img_title = content.get('title', '')
                     if img_title=='':
+                        crawler.info("--7777--")
                         img_title = content.get('alt', '')
                     if img_title=='':
+                        crawler.info("--8888--")
                         img_src = content.get('src','')
                         img_src = img_src.split('/')[-1].split('.',1)[0]
                         try:
+                            crawler.info("--9999--")
                             img_title = parse_emoji.softband_to_utf8(img_src)
                         except Exception as e:
                             parser.error('解析表情失败，具体信息是{},{}'.format(e, comment))
                             img_title = ''
+                    crawler.info("--10101010--")
                     cont.append(img_title)
 
                 else:
+                    crawler.info("--11111111--")
                     if first_colon:
+                        crawler.info("--12121212--")
                         if content.find('：')==0:
+                            crawler.info("--13131313--")
                             cont.append(content.replace('：','',1))
                             first_colon=False
-                    else:            
+                    else:
+                        crawler.info("--14141414--")
                         cont.append(content)
 
+            crawler.info("--15151515--")
             wb_comment.comment_cont = ''.join(cont)
             wb_comment.comment_screen_name =comment.find(attrs={'class': 'WB_text'}).find('a').text
             
@@ -133,11 +157,16 @@ def get_comment_list(html, wb_id):
             if not wb_comment.create_time.startswith('201'):
                 wb_comment.create_time = str(datetime.datetime.now().year) + wb_comment.create_time
 
+            crawler.info("--16161616--")
             wb_comment.weibo_id = wb_id
         except Exception as e:
             parser.error('解析评论失败，具体信息是{}'.format(e))
         else:
+            crawler.info("--17171717--")
             comment_list.append(wb_comment)
+    crawler.info("--18181818--")
     for comment_item in comment_list:
         crawler.info(comment_item + "--comment_item")
+
+    crawler.info("--19191919--")
     return comment_list
