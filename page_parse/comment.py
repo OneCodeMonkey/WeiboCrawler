@@ -14,7 +14,7 @@ def get_html_cont(html):
     cont = ''
     data = json.loads(html, encoding='utf-8').get('data', '')
     crawler.info("--get_html_cont, data, start")
-    crawler.info(json.encoder(data))
+    crawler.info(json.dumps(data))
     crawler.info("--get_html_cont, data, end")
     if data:
         cont = data.get('html', '')
@@ -73,14 +73,14 @@ def get_comment_list(html, wb_id):
     comments = soup.find(attrs={'node-type': 'comment_list'}).find_all(attrs={'class': 'list_li S_line1 clearfix'})
 
     crawler.info("--comments start")
-    crawler.info(json.encoder(comments))
+    crawler.info(json.dumps(comments))
     crawler.info("--comments end")
 
     for comment in comments:
         wb_comment = WeiboComment()
 
         crawler.info("--comment start")
-        crawler.info(json.encoder(comment))
+        crawler.info(json.dumps(comment))
         crawler.info("--comment end")
 
         try:
