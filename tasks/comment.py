@@ -34,7 +34,7 @@ def crawl_comment_by_page(mid, page_num):
     if not comment_datas:
         crawler.info("comment list empty!")
     for i in comment_datas:
-        crawler.info(i + "--comment item")
+        crawler.info("--comment item")
 
     return html, comment_datas
 
