@@ -83,7 +83,6 @@ def get_comment_list(html, wb_id):
         wb_comment = WeiboComment()
 
         crawler.info("--comment start")
-        crawler.info(json.dumps(comment))
         crawler.info("--comment end")
 
         try:
