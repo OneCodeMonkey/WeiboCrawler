@@ -76,7 +76,7 @@ def get_comment_list(html, wb_id):
     comments = soup.find(attrs={'node-type': 'comment_list'}).find_all(attrs={'class': 'list_li S_line1 clearfix'})
 
     crawler.info("--comments start")
-    crawler.info(json.dumps(comments))
+    # crawler.info(json.dumps(comments))
     crawler.info("--comments end")
 
     for comment in comments:
