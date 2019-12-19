@@ -171,7 +171,8 @@ def get_comment_list(html, wb_id):
             comment_list.append(wb_comment)
     crawler.info("--18181818--")
     for comment_item in comment_list:
-        crawler.info(comment_item + "--comment_item")
+        crawler.info("--comment_item")
+
 
     crawler.info("--19191919--")
     return comment_list
