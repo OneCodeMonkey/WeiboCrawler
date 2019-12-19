@@ -13,6 +13,9 @@ import re
 def get_html_cont(html):
     cont = ''
     data = json.loads(html, encoding='utf-8').get('data', '')
+    crawler.info("--get_html_cont, data, start")
+    crawler.info(json.encoder(data))
+    crawler.info("--get_html_cont, data, end")
     if data:
         cont = data.get('html', '')
 
