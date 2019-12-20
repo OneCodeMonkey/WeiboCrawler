@@ -88,14 +88,13 @@ redis:
     master: ''             # redis sentinel master name, if you don't need it, just set master: ''
     socket_timeout: 5            # socket timeout for redis sentinel, if you don't need it, just set master: ''
 
-
 # warning by email
 email:
     # your email must open smtp & pop3 service
     server:
     port: 465
     from:         #sendingemailaccount
-    password:               #youremailpasswd
+    password:              #youremailpasswd
     to:          #bind 139 email,so your phone will receive the warning message
     subject: Warning Of Weibo Spider
     warning_info: Please find out the reason why the spider stops working
