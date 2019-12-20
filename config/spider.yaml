@@ -14,8 +14,8 @@ max_retries: 5                 # retry times for crawling
 
 # You should set the args below if you login from uncommon place
 # It's for verification code indentified
-yundama_username: yundama2019A          # account for yundama
-yundama_passwd: yundama123             # password for yundama
+yundama_username:           # account for yundama
+yundama_passwd:              # password for yundama
 
 # only crawl weibo(bowen) after
 # only affect to home crawler
@@ -92,11 +92,11 @@ redis:
 # warning by email
 email:
     # your email must open smtp & pop3 service
-    server: smtp.exmail.qq.com
+    server:
     port: 465
-    from: system@thefair.net.cn        #sendingemailaccount
-    password: zjwUJ6Czocni               #youremailpasswd
-    to: 1454739651@qq.com         #bind 139 email,so your phone will receive the warning message
+    from:         #sendingemailaccount
+    password:               #youremailpasswd
+    to:          #bind 139 email,so your phone will receive the warning message
     subject: Warning Of Weibo Spider
     warning_info: Please find out the reason why the spider stops working
 
