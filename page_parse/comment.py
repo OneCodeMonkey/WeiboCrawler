@@ -161,7 +161,7 @@ def get_comment_list(html, wb_id):
                 wb_comment.create_time = str(datetime.datetime.now().year) + wb_comment.create_time
 
             crawler.info("----26262626----")
-            crawler.info(wb_id + "--wb_id--")
+            crawler.info(str(wb_id) + "--wb_id--")
             wb_comment.weibo_id = wb_id
         except Exception as e:
             crawler.info("----27272727----")
