@@ -166,6 +166,7 @@ def get_comment_list(html, wb_id):
         except Exception as e:
             crawler.info("----27272727----")
             parser.error('解析评论失败，具体信息是{}'.format(e))
+            crawler.error('解析评论失败，具体信息是{}'.format(e))
         else:
             crawler.info("----28282828----")
             for i in wb_comment:
