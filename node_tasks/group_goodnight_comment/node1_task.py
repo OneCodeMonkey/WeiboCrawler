@@ -6,7 +6,7 @@ from db.basic import db_session
 from logger import crawler
 
 
-mids = db_session.query(WeiboData).filter(WeiboData.weibo_cont.like("%晚安短信计划%")).all()
+mids = db_session.query(WeiboData).filter(WeiboData.weibo_cont.like("%晚安短信计划%")).all().limit(10)
 
 for mid in mids:
-    crawler.info(str(mid) + "--item")
+    crawler.info(mid.weibo_id + "--item")
