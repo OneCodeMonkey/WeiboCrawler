@@ -162,6 +162,7 @@ def get_comment_list(html, wb_id):
             if not wb_comment.create_time.startswith('201'):
                 wb_comment.create_time = str(datetime.datetime.now().year) + wb_comment.create_time
 
+            crawler.info(str(wb_comment.create_time) + "--.create_time--")
             crawler.info("----26262626----")
             crawler.info(str(wb_id) + "--wb_id--")
             wb_comment.weibo_id = wb_id
