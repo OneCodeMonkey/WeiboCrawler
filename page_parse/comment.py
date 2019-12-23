@@ -169,8 +169,7 @@ def get_comment_list(html, wb_id):
             crawler.error('解析评论失败，具体信息是{}'.format(e))
         else:
             crawler.info("----28282828----")
-            for i in wb_comment:
-                crawler(str(i) + "--wb_comment item--")
+            crawler("--wb_comment item--")
             comment_list.append(wb_comment)
             crawler.info("----29292929----")
 
