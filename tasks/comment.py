@@ -17,6 +17,8 @@ def crawl_comment_by_page(mid, page_num):
         cur_url = BASE_URL.format(mid, page_num)
         html = get_page(cur_url, auth_level=1, is_ajax=True)
         comment_datas = comment.get_comment_list(html, mid)
+        for i in comment_datas:
+            crawler.info(str(i) + "--comment_datas --")
     except SoftTimeLimitExceeded:
         crawler.error(
             "comment SoftTimeLimitExceeded    mid={mid} page_num={page_num}".
