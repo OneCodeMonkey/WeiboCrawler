@@ -135,7 +135,6 @@ def get_comment_list(html, wb_id):
 
             if '月' in wb_comment.create_time and '日' in wb_comment.create_time:
                 wb_comment.create_time = wb_comment.create_time.replace("月", "-")
-                wb_comment.create_time = wb_comment.create_time.replace("日", "-")
                 if '年' in wb_comment.create_time:
                     wb_comment.create_time = wb_comment.create_time.replace("年", "-")
 
