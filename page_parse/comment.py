@@ -143,6 +143,7 @@ def get_comment_list(html, wb_id):
             crawler.info("----24242424----")
             # 日期格式化
             create_time = comment.find(attrs={'class': 'WB_from S_txt2'}).text
+            crawler.info(str(create_time) + "--create_time--")
             crawler.info("----25252525----")
             if '分钟前' in create_time:
                 now = datetime.datetime.now()
