@@ -133,7 +133,7 @@ def get_comment_list(html, wb_id):
 
             crawler.info("----22222222----")
             wb_comment.comment_cont = ''.join(cont)
-            wb_comment.comment_screen_name =comment.find(attrs={'class': 'WB_text'}).find('a').text
+            wb_comment.comment_screen_name = comment.find(attrs={'class': 'WB_text'}).find('a').text
             crawler.info("----23232323----")
             
             wb_comment.comment_id = comment['comment_id']
@@ -167,7 +167,10 @@ def get_comment_list(html, wb_id):
             parser.error('解析评论失败，具体信息是{}'.format(e))
         else:
             crawler.info("----28282828----")
+            for i in wb_comment:
+                crawler(i + "--wb_comment item--")
             comment_list.append(wb_comment)
+            crawler.info("----29292929----")
 
-    crawler.info("----29292929----")
+    crawler.info("----30303030----")
     return comment_list
