@@ -139,6 +139,7 @@ def get_comment_list(html, wb_id):
             wb_comment.comment_id = comment['comment_id']
             # TODO 将wb_comment.user_id加入待爬队列（seed_ids）
             wb_comment.user_id = comment.find(attrs={'class': 'WB_text'}).find('a').get('usercard')[3:]
+            crawler.info(str(wb_comment.user_id) + "--user_id--")
             crawler.info("----24242424----")
             # 日期格式化
             create_time = comment.find(attrs={'class': 'WB_from S_txt2'}).text
