@@ -7,7 +7,7 @@ from db.basic import db_session
 from logger import crawler
 
 
-results = db_session.query(WeiboData).filter(WeiboData.weibo_cont.like("%晚安短信计划%")).limit(4200).all()
+results = db_session.query(WeiboData).filter(WeiboData.weibo_cont.like("%晚安短信计划%")).limit(4200).offset(4200 * 4).all()
 
 count = 0;
 for item in results:
