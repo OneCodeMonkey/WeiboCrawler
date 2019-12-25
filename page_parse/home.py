@@ -1,6 +1,7 @@
 import re
 import json
 import urllib.parse
+import datetime
 
 from bs4 import BeautifulSoup
 
@@ -64,6 +65,27 @@ def get_weibo_info_detail(each, html):
 
     time_url = each.find(attrs={'node-type': 'feed_list_item_date'})
     wb_data.create_time = time_url.get('title', '')
+
+    # 处理时间里的 “今天XXX，X分钟前，X秒前”等噪音
+    if '今天' in wb_data.create_time:
+        now = datetime.datetime.now().strftime('%Y-%m-%d')
+        real_time = now + wb_data.create_time.strip().split('今天')[-1]
+        wb_data.create_time = str(real_time)
+    # 中文时间戳转换成标准格式 "%Y-%m-%d %H:%M"
+    create_time_copy = wb_data.create_time
+    if '月' in create_time_copy and '日' in create_time_copy:
+        month = create_time_copy.split("年")[-1].split("月")[0]
+        day = create_time_copy.split("年")[-1].split("月")[-1].split("日")[0]
+        # 补齐0
+        if month and int(month) < 10:
+            wb_data.create_time = wb_data.create_time.replace(str(month) + "月", "0" + str(month) + "月")
+        if day and int(day) < 10:
+            wb_data.create_time = wb_data.create_time.replace(str(day) + "日", "0" + str(day) + "日")
+        wb_data.create_time = wb_data.create_time.replace("月", "-")
+        wb_data.create_time = wb_data.create_time.replace("日", "")
+        if '年' in wb_data.create_time:
+            wb_data.create_time = wb_data.create_time.replace("年", "-")
+
     wb_data.weibo_url = time_url.get('href', '')
     if ROOT_URL not in wb_data.weibo_url:
         wb_data.weibo_url = '{}://{}{}'.format(PROTOCOL, ROOT_URL, wb_data.weibo_url)
