@@ -84,15 +84,15 @@ redis:
     #      port: 26379            #
     #                             #
     ###############################
-    sentinel:
-        - host: 172.16.6.2
-          port: 26379
-        - host: 172.16.6.3
-          port: 26379
-        - host: 172.16.6.4
-          port: 26379
-        - host: 172.16.6.5
-          port: 26379
+    sentinel: ''
+#        - host: 172.16.6.2
+#          port: 26379
+#        - host: 172.16.6.3
+#          port: 26379
+#        - host: 172.16.6.4
+#          port: 26379
+#        - host: 172.16.6.5
+#          port: 26379
     master: mymaster             # redis sentinel master name, if you don't need it, just set master: ''
     socket_timeout: 5            # socket timeout for redis sentinel, if you don't need it, just set master: ''
 
