@@ -1,3 +1,4 @@
+import os
 from logger import crawler
 from tasks.workers import app
 
