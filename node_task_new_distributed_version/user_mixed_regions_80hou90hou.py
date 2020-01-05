@@ -1,5 +1,6 @@
-from tasks.workers import app
 from logger import crawler
+from tasks.workers import app
+
 
 import random
 
