@@ -14,3 +14,4 @@ config/spider.yaml
 */.cache/
 nohup.out
 node_tasks/sql/
+node_task_new_distributed_version/*
