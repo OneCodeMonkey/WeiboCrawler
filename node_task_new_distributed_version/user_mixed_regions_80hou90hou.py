@@ -1,5 +1,4 @@
 from tasks.workers import app
-from tasks.user import crawl_person_infos
 from logger import crawler
 
 import random
