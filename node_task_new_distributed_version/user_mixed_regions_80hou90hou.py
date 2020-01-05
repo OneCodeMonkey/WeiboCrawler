@@ -15,4 +15,4 @@ for uid in uids:
     app.send_task('tasks.user.crawl_person_infos', args=(uid,), queue='user_crawler',
                   routing_key='for_user_info')
     count += 1
-    crawler.info("count:" + count)
+    crawler.info("count:" + str(count))
