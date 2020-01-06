@@ -8,7 +8,7 @@ excp_interal: 5*60              # time for sleeping when crawling raises excepti
 max_search_page: 50            # max search page for crawling
 max_home_page: 500              # max user home page for crawling
 max_comment_page: 2000         # max comment page for crawling
-max_repost_page: 2000          # max repost page for crawling
+max_repost_page: 200          # max repost page for crawling
 max_dialogue_page: 2000        # max dialogue page for crawling
 max_retries: 5                 # retry times for crawling
 
