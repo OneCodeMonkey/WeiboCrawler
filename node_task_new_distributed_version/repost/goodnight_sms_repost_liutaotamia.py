@@ -43,7 +43,7 @@ while count < maxRecursiveTimes:
 
     crawler.info("repost step2 finished, loop is:" + str(count))
 
-    result2 = db_session.execute(text('select weibo_id,user_id from thefair_weibo_repost where root_weibo_id =' + source_weibo_id + ' and ' + 'parent_user_id in(' + ','.join(unqueryedUid) + ')')).fetchall()
+    result2 = db_session.query(WeiboRepost.weibo_id, WeiboRepost.user_id).filter(and_(WeiboRepost.root_weibo_id == source_weibo_id, WeiboRepost.parent_user_id.in_(unqueryedUid))).all()
     for i in unqueryedUid:
         queryedUidFromScrapyed.append(i)
     unqueryedUid = []
