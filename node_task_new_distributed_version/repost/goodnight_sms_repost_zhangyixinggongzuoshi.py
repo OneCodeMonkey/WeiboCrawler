@@ -8,6 +8,7 @@ from tasks.workers import app
 from db.basic import db_session
 from db.models import WeiboRepost
 from sqlalchemy import and_
+from sqlalchemy import text
 
 # recording uid, avoid repeating task
 source_weibo_id = 4442818895949202      # 源微博的weibo_id
@@ -30,7 +31,7 @@ while count < maxRecursiveTimes:
         if checkStr not in scrapyed:
             unscrapyed.append(str(each[0]) + ';' + str(each[1]))
         if each[1] not in queryedUidFromScrapyed:
-            unqueryedUid.append(each[1])   # 下一级，用 root_weibo_id = each[0] 的条件再查
+            unqueryedUid.append(str(each[1]))   # 下一级，用 root_weibo_id = each[0] 的条件再查
     crawler.info("repost step1 finished, loop is:" + str(count))
 
     for item in unscrapyed:
@@ -42,16 +43,17 @@ while count < maxRecursiveTimes:
 
     crawler.info("repost step2 finished, loop is:" + str(count))
 
-    for item in unqueryedUid:
-        result2 = db_session.query(WeiboRepost.weibo_id, WeiboRepost.user_id).filter(and_(WeiboRepost.root_weibo_id == source_weibo_id, WeiboRepost.parent_user_id == int(item))).all()
-        unqueryedUid.remove(item)
-        queryedUidFromScrapyed.append(item)
-        for each in result2:
-            checkStr = str(each[0]) + ';' + str(each[1])
-            if checkStr not in scrapyed:
-                unscrapyed.append(str(each[0]) + ';' + str(each[1]))
-            if each[1] not in queryedUidFromScrapyed:
-                unqueryedUid.append(each[1])  # 下一级，用 root_weibo_id = each[0] 的条件再查
+    result2 = db_session.query(WeiboRepost.weibo_id, WeiboRepost.user_id).filter(and_(WeiboRepost.root_weibo_id == source_weibo_id, text('parent_user_id in(' + ','.join(unqueryedUid)))).all()
+    for i in unqueryedUid:
+        queryedUidFromScrapyed.append(i)
+    unqueryedUid = []
 
-    count += 1
+    for each in result2:
+        checkStr = str(each[0]) + ';' + str(each[1])
+        if checkStr not in scrapyed:
+            unscrapyed.append(str(each[0]) + ';' + str(each[1]))
+        if str(each[1]) not in queryedUidFromScrapyed:
+            unqueryedUid.append(each[1])  # 下一级，用 root_weibo_id = each[0] 的条件再查
+
     crawler.info("repost step3 finished, loop is:" + str(count))
+    count += 1
