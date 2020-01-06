@@ -18,7 +18,7 @@ unqueryedUid = []       # for parent_user_id query
 queryedUidFromScrapyed = []     # for parent_user_id query
 
 # 第一遍爬取
-app.send_task('tasks.repost.crawl_repost_page', args=(source_weibo_id, source_user_id), queue='repost_crawler', routing_key='repost_info')
+# app.send_task('tasks.repost.crawl_repost_page', args=(source_weibo_id, source_user_id), queue='repost_crawler', routing_key='repost_info')
 
 # 循环遍历次级转发
 maxRecursiveTimes = 100     # 最大循环次数，此为经验值，可根据实际需要调整
@@ -31,7 +31,7 @@ while count < maxRecursiveTimes:
             unscrapyed.append(str(each[0]) + ';' + str(each[1]))
         if each[1] not in queryedUidFromScrapyed:
             unqueryedUid.append(each[1])   # 下一级，用 root_weibo_id = each[0] 的条件再查
-    crawler.info("repost step1 finished, loop is:" + count)
+    crawler.info("repost step1 finished, loop is:" + str(count))
 
     for item in unscrapyed:
         weibo_id = item.split(';')[0]
@@ -40,7 +40,7 @@ while count < maxRecursiveTimes:
         unscrapyed.remove(item)
         scrapyed.append(item)
 
-    crawler.info("repost step2 finished, loop is:" + count)
+    crawler.info("repost step2 finished, loop is:" + str(count))
 
     for item in unqueryedUid:
         result2 = db_session.query(WeiboRepost.weibo_id, WeiboRepost.user_id).filter(and_(WeiboRepost.root_weibo_id == source_weibo_id, WeiboRepost.parent_user_id == int(item))).all()
@@ -54,4 +54,4 @@ while count < maxRecursiveTimes:
                 unqueryedUid.append(each[1])  # 下一级，用 root_weibo_id = each[0] 的条件再查
 
     count += 1
-    crawler.info("repost step3 finished, loop is:" + count)
+    crawler.info("repost step3 finished, loop is:" + str(count))
