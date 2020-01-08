@@ -14,4 +14,4 @@ config/spider.yaml
 */.cache/
 nohup.out
 node_tasks/sql/
-node_task_new_distributed_version/*
+node_task_new_distributed_version/query_2000_80hou_userinfo.sql
