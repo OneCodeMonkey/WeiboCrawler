@@ -27343,4 +27343,4 @@ count = 0
 for uid in uids:
     app.send_task('tasks.home.crawl_weibo_datas', args=(uid,), queue='home_crawler', routing_key='home_info')
     count += 1
-    crawler.info("count:" + count)
+    crawler.info("count:" + str(count))
