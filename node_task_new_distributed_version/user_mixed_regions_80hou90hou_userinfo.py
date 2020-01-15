@@ -1,10 +1,11 @@
 import sys
 import os
+import time
 o_path = os.getcwd() # 返回当前工作目录
 sys.path.append(o_path) # 添加自己指定的搜索路径
 
 from logger import crawler
-from tasks.workers import app
+from tasks.user import crawl_person_infos
 
 uids = [
 2289052375,
@@ -41832,6 +41833,7 @@ uids = [
 
 count = 0
 for uid in uids:
-    app.send_task('tasks.user.crawl_person_infos', args=(uid,), queue='user_crawler', routing_key='for_user_info')
+    crawl_person_infos(uid)
     count += 1
     crawler.info("count:" + str(count))
+    time.sleep(1)
