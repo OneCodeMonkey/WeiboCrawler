@@ -151,7 +151,7 @@ class SeedidsOper:
 class UserOper(CommonOper):
     @classmethod
     def get_user_by_uid(cls, uid):
-        return db_session.query(User).filter(User.uid == uid).first()
+        return db_session.query(User).filter(User.uid == str(uid)).first()
 
     @classmethod
     def get_user_by_name(cls,user_name):
