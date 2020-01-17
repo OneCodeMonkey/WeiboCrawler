@@ -1,5 +1,5 @@
 from sqlalchemy import (
-    Table, Column, INTEGER, String, Text, TIMESTAMP, DateTime, func)
+    Table, Column, INTEGER, String, Text, TIMESTAMP, DateTime, func, BIGINT)
 
 from .basic import metadata
 
@@ -14,7 +14,7 @@ login_info = Table("thefair_login_info", metadata,
 # weibo user info
 wbuser = Table("thefair_wbuser", metadata,
                Column("id", INTEGER, primary_key=True, autoincrement=True),
-               Column("uid", String(20), unique=True),
+               Column("uid", BIGINT, unique=True),
                Column("name", String(200), default='', server_default=''),
                Column("gender", INTEGER, default=0, server_default='0'),
                Column("birthday", String(200), default='', server_default=''),
