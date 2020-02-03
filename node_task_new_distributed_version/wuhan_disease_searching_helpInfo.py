@@ -5,6 +5,7 @@ sys.path.append(o_path) # 添加自己指定的搜索路径
 
 from logger import crawler
 from tasks.workers import app
+from tasks.search import search_keyword
 
 KEYWORDS = [
     "武汉 住院",
@@ -29,3 +30,4 @@ for KEYWORD in KEYWORDS:
     crawler.info("sending searching task with keyword:" + str(KEYWORD))
     app.send_task('tasks.search.search_keyword', args=(KEYWORD, 1), queue='search_crawler',
                   routing_key='for_search_info')
+    search_keyword(KEYWORD, 1)
