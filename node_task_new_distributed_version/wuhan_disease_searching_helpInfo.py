@@ -26,6 +26,6 @@ KEYWORDS = [
 ]
 
 for KEYWORD in KEYWORDS:
-    crawler.log("sending searching task with keyword:" + str(KEYWORD))
+    crawler.info("sending searching task with keyword:" + str(KEYWORD))
     app.send_task('tasks.search.search_keyword', args=(KEYWORD, 1), queue='search_crawler',
                   routing_key='for_search_info')
