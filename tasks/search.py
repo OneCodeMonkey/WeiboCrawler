@@ -47,17 +47,20 @@ def search_keyword(keyword, keyword_id):
         # Because the search results are sorted by time, if any result has been stored in mysql,
         # We don't need to crawl the same keyword in this turn
         for wb_data in search_list:
-            rs = WbDataOper.get_wb_by_mid(wb_data.weibo_id)
-            KeywordsDataOper.insert_keyword_wbid(keyword_id, wb_data.weibo_id)
-            # todo incremental crawling using time
-            if rs:
-                crawler.info('Weibo {} has been crawled, skip it.'.format(wb_data.weibo_id))
-                continue
-            else:
-                WbDataOper.add_one(wb_data)
-                # todo: only add seed ids and remove this task
-                app.send_task('tasks.user.crawl_person_infos', args=(wb_data.uid,), queue='user_crawler',
-                              routing_key='for_user_info')
+            # MySQL 查表去重太慢，需要转到 redis 去重。
+
+            # rs = WbDataOper.get_wb_by_mid(wb_data.weibo_id)
+            # KeywordsDataOper.insert_keyword_wbid(keyword_id, wb_data.weibo_id)
+            # # todo incremental crawling using time
+            # if rs:
+            #     crawler.info('Weibo {} has been crawled, skip it.'.format(wb_data.weibo_id))
+            #     continue
+            # else:
+
+            WbDataOper.add_one(wb_data)
+            # todo: only add seed ids and remove this task
+            app.send_task('tasks.user.crawl_person_infos', args=(wb_data.uid,), queue='user_crawler',
+                          routing_key='for_user_info')
 
 @app.task(ignore_result=True)
 def execute_search_task():
