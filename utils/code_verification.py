@@ -52,8 +52,8 @@ class Chaojiying_Client(object):
 def code_verificate(name, passwd, file_name, code_type=1005, app_id=3510, app_key='7281f8452aa559cdad6673684aa8f575',
                     time_out=60):
     chaojiying = Chaojiying_Client('cjyA123B', 'chaojiyingA123', '96001')  # 用户中心>>软件ID 生成一个替换 96001
-    # im = open('a.jpg', 'rb').read()
-    api_cjy_result = chaojiying.PostPic(file_name, 1902)
+    im = open(file_name, 'rb').read()
+    api_cjy_result = chaojiying.PostPic(im, 1902)
     rs = api_cjy_result['pic_str']
     err_no = api_cjy_result['err_no']
     cid = api_cjy_result['pic_id']
