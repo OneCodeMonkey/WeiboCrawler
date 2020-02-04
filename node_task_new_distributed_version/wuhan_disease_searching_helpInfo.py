@@ -30,4 +30,3 @@ for KEYWORD in KEYWORDS:
     crawler.info("sending searching task with keyword:" + str(KEYWORD))
     app.send_task('tasks.search.search_keyword', args=(KEYWORD, 1), queue='search_crawler',
                   routing_key='for_search_info')
-    search_keyword(KEYWORD, 1)
