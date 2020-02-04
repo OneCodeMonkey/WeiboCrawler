@@ -136,6 +136,7 @@ def login_no_pincode(name, password, session, server_data, proxy):
         'url': 'http://weibo.com/ajaxlogin.php?framelogin=1&callback=parent.sinaSSOController.feedBackUrlCallBack'
     }
 
+    crawler.info("login_no_pincode")
     rs = get_redirect(name, data, post_url, session, proxy)
 
     return rs, None, '', session
@@ -181,6 +182,8 @@ def login_by_pincode(name, password, session, server_data, retry_count, proxy):
     pincode_name = get_img(img_url, name, retry_count, proxy)
     verify_code, cjy_client, cid, err_no = code_verificate(YUMDAMA_USERNAME, YUMDAMA_PASSWORD, pincode_name)
     data['door'] = verify_code
+    crawler.info("result list:" + str(verify_code) + str(cid) + str(err_no))
+    crawler.info("login_by_pincode")
     rs = get_redirect(name, data, post_url, session, proxy)
 
     os.remove(pincode_name)
