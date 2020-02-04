@@ -1,11 +1,10 @@
 import re
-import datetime
 import urllib.parse
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from bs4 import BeautifulSoup
 
-from logger import parser
+from logger import parser, crawler
 from page_get import status
 from utils import url_filter
 from db.models import WeiboData
@@ -93,19 +92,19 @@ def get_weibo_info(each, html):
 
         # 日期噪音处理，同一格式化 %Y-%m-%d %H:%M
         if '分钟前' in wb_data.create_time:
-            now = datetime.datetime.now()
+            now = datetime.now()
             reduce_minute = wb_data.create_time.strip().split('分钟')[0]
-            delta = datetime.timedelta(minutes=int(reduce_minute))
+            delta = timedelta(minutes=int(reduce_minute))
             real_time = now - delta
             wb_data.create_time = str(real_time.strftime('%Y-%m-%d %H:%M'))
         elif '今天' in wb_data.create_time:
-            now = datetime.datetime.now().strftime('%Y-%m-%d')
+            now = datetime.now().strftime('%Y-%m-%d')
             real_time = now + wb_data.create_time.strip().split('今天')[-1]
             wb_data.create_time = str(real_time)
         else:
             wb_data.create_time = wb_data.create_time
-        if not wb_data.create_time.startswith('201'):
-            wb_data.create_time = str(datetime.datetime.now().year) + wb_data.create_time
+        if not wb_data.create_time.startswith('201'):   # 补齐年份
+            wb_data.create_time = str(datetime.now().year) + wb_data.create_time
 
         # 中文时间戳转换成标准格式 "%Y-%m-%d %H:%M"
         create_time_copy = wb_data.create_time
@@ -122,6 +121,8 @@ def get_weibo_info(each, html):
             wb_data.create_time = wb_data.create_time.replace("日", "")
             if '年' in wb_data.create_time:
                 wb_data.create_time = wb_data.create_time.replace("年", "-")
+
+        crawler.info("create_time:" + str(wb_data.create_time))
 
         wb_data.weibo_url = 'https:'+each.find(attrs={'class': 'from'}).find(attrs={'target': '_blank'})['href']
         wb_data.uid = each.find(attrs={'class': 'from'}).find(attrs={'target': '_blank'})['href'].split('/')[3]
