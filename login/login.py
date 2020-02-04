@@ -180,6 +180,7 @@ def login_by_pincode(name, password, session, server_data, retry_count, proxy):
         raise LoginException('Login need verfication code, please set your yumdama info in config/spider.yaml')
     img_url = get_pincode_url(pcid)
     pincode_name = get_img(img_url, name, retry_count, proxy)
+    crawler.info("pincode_name:" + str(pincode_name))
     verify_code, cjy_client, cid, err_no = code_verificate(YUMDAMA_USERNAME, YUMDAMA_PASSWORD, pincode_name)
     data['door'] = verify_code
     crawler.info("result list:" + str(verify_code) + str(cid) + str(err_no))
