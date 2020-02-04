@@ -14,7 +14,7 @@ class Chaojiying_Client(object):
         password =  password.encode('utf8')
         self.password = md5(password).hexdigest()
         self.soft_id = soft_id
-        self.base_params = {+
+        self.base_params = {
             'user': self.username,
             'pass2': self.password,
             'softid': self.soft_id,
