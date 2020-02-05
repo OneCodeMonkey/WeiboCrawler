@@ -59,8 +59,11 @@ def search_keyword(keyword, keyword_id):
 
             WbDataOper.add_one(wb_data)
             # todo: only add seed ids and remove this task
-            app.send_task('tasks.user.crawl_person_infos', args=(wb_data.uid,), queue='user_crawler',
+            try:
+                app.send_task('tasks.user.crawl_person_infos', args=(wb_data.uid,), queue='user_crawler',
                           routing_key='for_user_info')
+            except Exception as e:
+                crawler.error('get attribute error, the detail is {}'.format(e))
 
 @app.task(ignore_result=True)
 def execute_search_task():
