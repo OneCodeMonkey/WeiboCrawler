@@ -10,6 +10,7 @@ from tasks.search import search_keyword
 KEYWORDS = [
     "黄石 物资",
     "黄石 疫情",
+    "方舱",
     "武汉 住院",
     "武汉 疫情",
     "爸爸 医院",
