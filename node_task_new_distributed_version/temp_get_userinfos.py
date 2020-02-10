@@ -4339,7 +4339,7 @@ uids = [
 
 count = 0
 for uid in uids:
-    app.send_task('tasks.user.crawl_person_infos', args=(uid,), queue='user_crawler',
-                  routing_key='for_user_info')
+    crawl_person_infos(uid)
     count += 1
     crawler.info("count:" + str(count))
+    time.sleep(1)
