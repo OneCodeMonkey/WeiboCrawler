@@ -64,9 +64,9 @@ db:
     db_type: mysql
 
 redis:
-    host: 172.16.6.105
+    host: r-uf6r97l634jg1a6qy5.redis.rds.aliyuncs.com
     port: 6379
-    password: 'weibospider'
+    password: 'OpenApITf2015'
     cookies: 1                   # store and fetch cookies
     # store fetched urls and results,so you can decide whether retry to crawl the urls or not
     urls: 2
