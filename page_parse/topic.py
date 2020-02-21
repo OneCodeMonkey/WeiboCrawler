@@ -1,12 +1,10 @@
 import re
 import urllib.parse
-import time
-from datetime import datetime
-import datetime
+from datetime import datetime, timedelta
 
 from bs4 import BeautifulSoup
 
-from logger import parser
+from logger import parser, crawler
 from page_get import status
 from utils import url_filter
 from db.models import WeiboTopic
@@ -91,6 +89,41 @@ def get_weibo_info(each, html):
     try:
         # todo 日期格式化,会有今日XXX，X分钟前等噪音
         wb_data.create_time = each.find(attrs={'class': 'from'}).find(attrs={'target': '_blank'}).text.strip()
+
+        # 日期噪音处理，同一格式化 %Y-%m-%d %H:%M
+        if '分钟前' in wb_data.create_time:
+            now = datetime.now()
+            reduce_minute = wb_data.create_time.strip().split('分钟')[0]
+            delta = timedelta(minutes=int(reduce_minute))
+            real_time = now - delta
+            wb_data.create_time = str(real_time.strftime('%Y-%m-%d %H:%M'))
+        elif '今天' in wb_data.create_time:
+            now = datetime.now().strftime('%Y-%m-%d')
+            real_time = now + wb_data.create_time.strip().split('今天')[-1]
+            wb_data.create_time = str(real_time)
+        else:
+            wb_data.create_time = wb_data.create_time
+        if not wb_data.create_time.startswith('201'):  # 补齐年份
+            wb_data.create_time = str(datetime.now().year) + wb_data.create_time
+
+        # 中文时间戳转换成标准格式 "%Y-%m-%d %H:%M"
+        create_time_copy = wb_data.create_time
+        if '月' in create_time_copy and '日' in create_time_copy:
+            month = create_time_copy.split("年")[-1].split("月")[0]
+            day = create_time_copy.split("年")[-1].split("月")[-1].split("日")[0]
+            # 补齐0
+            if month and int(month) < 10:
+                wb_data.create_time = wb_data.create_time.replace(str(month) + "月",
+                                                                  "0" + str(month) + "月")
+            if day and int(day) < 10:
+                wb_data.create_time = wb_data.create_time.replace(str(day) + "日", "0" + str(day) + "日")
+            wb_data.create_time = wb_data.create_time.replace("月", "-")
+            wb_data.create_time = wb_data.create_time.replace("日", "")
+            if '年' in wb_data.create_time:
+                wb_data.create_time = wb_data.create_time.replace("年", "-")
+
+        crawler.info("create_time:" + str(wb_data.create_time))
+
         wb_data.weibo_url = 'https:'+each.find(attrs={'class': 'from'}).find(attrs={'target': '_blank'})['href']
         wb_data.uid = each.find(attrs={'class': 'from'}).find(attrs={'target': '_blank'})['href'].split('/')[3]
     except (AttributeError, KeyError):
