@@ -8,8 +8,8 @@ import time
 import datetime
 from logger import crawler
 
-STARTTIME = '2020-02-20 00:00:00'
-ENDTIME = '2020-02-20 20:00:00'
+STARTTIME = '2020-02-21 20:00:00'
+ENDTIME = '2020-02-22 20:00:00'
 KEYWORD = '#晚安短信湖北计划#'
 
 start_time = datetime.datetime.strptime(STARTTIME, "%Y-%m-%d %H:%M:%S")

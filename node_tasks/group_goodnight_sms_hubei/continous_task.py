@@ -9,7 +9,7 @@ import time
 import datetime
 from logger import crawler
 
-STARTTIME = '2020-02-20 20:00:00'
+STARTTIME = '2020-02-24 20:00:00'
 ENDTIME = time.strftime('%Y-%m-%d',time.localtime(time.time())) + ' 23:00:00'
 KEYWORD = '#晚安短信湖北计划#'
 
