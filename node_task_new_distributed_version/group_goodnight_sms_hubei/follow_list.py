@@ -1,3 +1,8 @@
+import sys
+import os
+o_path = os.getcwd() # 返回当前工作目录
+sys.path.append(o_path) # 添加自己指定的搜索路径
+
 from tasks.workers import app
 from page_get.user import get_fans_or_followers_ids
 from tasks.user import crawl_person_infos
