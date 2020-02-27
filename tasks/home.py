@@ -111,7 +111,7 @@ def crawl_weibo_datas(uid):
 
         cur_page += 1
 
-    SeedidsOper.set_seed_home_crawled(uid)
+    # SeedidsOper.set_seed_home_crawled(uid)
 
 
 @app.task(ignore_result=True)
