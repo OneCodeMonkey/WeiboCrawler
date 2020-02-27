@@ -18,12 +18,12 @@ AJAX_URL = 'http://weibo.com/p/aj/v6/mblog/mbloglist?ajwvr=6&domain={}&pagebar={
 
 
 def determine(weibo_datum, timeafter):
-    weibo_time = time.mktime(
-        time.strptime(weibo_datum.create_time, '%Y-%m-%d %H:%M'))
-    if weibo_time < timeafter:
-        return False
-    if WbDataOper.get_wb_by_mid(weibo_datum.weibo_id):
-        return False
+    # weibo_time = time.mktime(
+    #     time.strptime(weibo_datum.create_time, '%Y-%m-%d %H:%M'))
+    # if weibo_time < timeafter:
+    #     return False
+    # if WbDataOper.get_wb_by_mid(weibo_datum.weibo_id):
+    #     return False
     return True
 
 
