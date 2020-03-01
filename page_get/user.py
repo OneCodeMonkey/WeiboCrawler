@@ -102,14 +102,14 @@ def get_profile(user_id):
 
     if user:
         storage.info('user {id} has already crawled'.format(id=user_id))
-        SeedidsOper.set_seed_crawled(user_id, 1)
+        # SeedidsOper.set_seed_crawled(user_id, 1)
         is_crawled = 1
     else:
         user = get_url_from_web(user_id)
-        if user is not None:
-            SeedidsOper.set_seed_crawled(user_id, 1)
-        else:
-            SeedidsOper.set_seed_crawled(user_id, 2)
+        # if user is not None:
+        #     SeedidsOper.set_seed_crawled(user_id, 1)
+        # else:
+        #     SeedidsOper.set_seed_crawled(user_id, 2)
         is_crawled = 0
 
     return user, is_crawled

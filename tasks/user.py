@@ -36,13 +36,13 @@ def crawl_person_infos(uid):
         # If it's enterprise user, just skip it
         # if user and user.verify_type == 2:
         if user:
-            SeedidsOper.set_seed_other_crawled(uid)
+            # SeedidsOper.set_seed_other_crawled(uid)
             return
 
         # Crawl fans and followers
-        if not is_crawled:
-            app.send_task('tasks.user.crawl_follower_fans', args=(uid,), queue='fans_followers',
-                          routing_key='for_fans_followers')
+        # if not is_crawled:
+        #     app.send_task('tasks.user.crawl_follower_fans', args=(uid,), queue='fans_followers',
+        #                   routing_key='for_fans_followers')
 
     # By adding '--soft-time-limit secs' when you start celery, this will resend task to broker
     # e.g. celery -A tasks.workers -Q user_crawler worker -l info -c 1 --soft-time-limit 10
