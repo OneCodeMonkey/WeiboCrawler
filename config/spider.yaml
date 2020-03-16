@@ -64,7 +64,7 @@ db:
     db_type: mysql
 
 redis:
-    host: 127.0.0.1
+    host: 172.16.6.105
     port: 6379
     password: 'weibospider'
     cookies: 1                   # store and fetch cookies
